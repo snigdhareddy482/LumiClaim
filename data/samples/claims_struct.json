@@ -1,0 +1,141 @@
+{
+  "EOB-001": [
+    {
+      "line_id": "L1",
+      "page": 2,
+      "cell_id": "tbl3:R7C4",
+      "cpt": "99215",
+      "modifier": "25",
+      "billed": 45000.00,
+      "allowed": 420.00,
+      "insurer_paid": 336.00,
+      "adjustments": [
+        {
+          "type": "contractual",
+          "amount": 44496.00
+        }
+      ],
+      "patient_resp": 84.00
+    },
+    {
+      "line_id": "L2",
+      "page": 2,
+      "cell_id": "tbl3:R8C4",
+      "cpt": "93000",
+      "modifier": "",
+      "billed": 45138.85,
+      "allowed": 466.00,
+      "insurer_paid": 372.80,
+      "adjustments": [
+        {
+          "type": "contractual",
+          "amount": 44579.65
+        },
+        {
+          "type": "deductible",
+          "amount": 93.20
+        }
+      ],
+      "patient_resp": 93.20
+    },
+    {
+      "line_id": "TOTAL",
+      "page": 2,
+      "cell_id": "tbl3:R9C4",
+      "cpt": "",
+      "modifier": "",
+      "billed": 90138.85,
+      "allowed": 886.00,
+      "insurer_paid": 708.80,
+      "adjustments": [
+        {
+          "type": "contractual",
+          "amount": 89075.65
+        },
+        {
+          "type": "deductible",
+          "amount": 93.20
+        }
+      ],
+      "patient_resp": 177.20
+    }
+  ],
+  "EOB-002": [
+    {
+      "line_id": "L1",
+      "page": 2,
+      "cell_id": "tbl3:R7C4",
+      "cpt": "99215",
+      "modifier": "25",
+      "billed": 45000.00,
+      "allowed": 420.00,
+      "insurer_paid": 336.00,
+      "adjustments": [
+        {
+          "type": "contractual",
+          "amount": 44496.00
+        }
+      ],
+      "patient_resp": 84.00
+    },
+    {
+      "line_id": "L2",
+      "page": 2,
+      "cell_id": "tbl3:R8C4",
+      "cpt": "93000",
+      "modifier": "",
+      "billed": 45138.85,
+      "allowed": 466.00,
+      "insurer_paid": 372.80,
+      "adjustments": [
+        {
+          "type": "contractual",
+          "amount": 44579.65
+        },
+        {
+          "type": "deductible",
+          "amount": 93.20
+        }
+      ],
+      "patient_resp": 93.20
+    },
+    {
+      "line_id": "L3",
+      "page": 3,
+      "cell_id": "tbl4:R2C4",
+      "cpt": "80053",
+      "modifier": "",
+      "billed": 2850.00,
+      "allowed": 450.00,
+      "insurer_paid": 30.00,
+      "adjustments": [
+        {
+          "type": "contractual",
+          "amount": 2400.00
+        }
+      ],
+      "patient_resp": 420.00
+    },
+    {
+      "line_id": "TOTAL",
+      "page": 3,
+      "cell_id": "tbl4:R3C4",
+      "cpt": "",
+      "modifier": "",
+      "billed": 92988.85,
+      "allowed": 1336.00,
+      "insurer_paid": 738.80,
+      "adjustments": [
+        {
+          "type": "contractual",
+          "amount": 91475.65
+        },
+        {
+          "type": "deductible",
+          "amount": 93.20
+        }
+      ],
+      "patient_resp": 597.20
+    }
+  ]
+}
