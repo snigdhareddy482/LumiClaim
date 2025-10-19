@@ -1,18 +1,40 @@
+---
 name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
-  placeholder:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install backend dependencies
+        run: |
+          cd backend
+          pip install -r requirements.txt
+
+      - name: Smoke test - Import FastAPI app
+        run: |
+          cd backend
+          python -c "from main import app; \
+            print('FastAPI app imported successfully')"
+
       - name: Lint YAML files
         uses: ibiqlik/action-yamllint@v3
         with:
           file_or_dir: .
+
+      - name: Validate docker-compose.yml
+        run: |
+          docker compose config
