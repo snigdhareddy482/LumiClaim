@@ -1,2 +1,3 @@
 # LumiClaim
-Proof-first medical billing copilot (PME • LAR • PSL • Delta Detective)
+
+Initial repository scaffold for the LumiClaim platform, including backend, frontend, documentation, and deployment assets.
