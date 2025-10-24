@@ -1,0 +1,11 @@
+{
+  "doc_id": "EOB-059",
+  "session_id": "recon-test-session",
+  "filename": "manual-entry",
+  "file_type": "manual",
+  "pages": 1,
+  "notes": [
+    "manual_entry_used"
+  ],
+  "extracted_text_preview": "Manual entry provided by user"
+}

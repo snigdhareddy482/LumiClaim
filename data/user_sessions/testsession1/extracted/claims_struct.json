@@ -1,0 +1,138 @@
+[
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 200.0,
+    "allowed": 150.0,
+    "insurer_paid": 100.0,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 50.0
+      }
+    ],
+    "patient_resp": 50.0,
+    "doc_id": "EOB-018"
+  },
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 200.0,
+    "allowed": 150.0,
+    "insurer_paid": 100.0,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 50.0
+      }
+    ],
+    "patient_resp": 50.0,
+    "doc_id": "EOB-020"
+  },
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 200.0,
+    "allowed": 150.0,
+    "insurer_paid": 100.0,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 50.0
+      }
+    ],
+    "patient_resp": 50.0,
+    "doc_id": "EOB-026"
+  },
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 200.0,
+    "allowed": 150.0,
+    "insurer_paid": 100.0,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 50.0
+      }
+    ],
+    "patient_resp": 50.0,
+    "doc_id": "EOB-036"
+  },
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 200.0,
+    "allowed": 150.0,
+    "insurer_paid": 100.0,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 50.0
+      }
+    ],
+    "patient_resp": 50.0,
+    "doc_id": "EOB-042"
+  },
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 200.0,
+    "allowed": 150.0,
+    "insurer_paid": 100.0,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 50.0
+      }
+    ],
+    "patient_resp": 50.0,
+    "doc_id": "EOB-048"
+  },
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 200.0,
+    "allowed": 150.0,
+    "insurer_paid": 100.0,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 50.0
+      }
+    ],
+    "patient_resp": 50.0,
+    "doc_id": "EOB-054"
+  },
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 200.0,
+    "allowed": 150.0,
+    "insurer_paid": 100.0,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 50.0
+      }
+    ],
+    "patient_resp": 50.0,
+    "doc_id": "EOB-060"
+  }
+]

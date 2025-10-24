@@ -1,0 +1,237 @@
+{
+  "generated_at": "2025-10-24T02:47:56+00:00",
+  "results": {
+    "rows": [
+      {
+        "doc_id": "EOB-001",
+        "latency_ms": 0.48,
+        "verifiability": 1.0,
+        "warnings": 0,
+        "risk_flag_count": 0,
+        "copy_ms": 0.04,
+        "docx_size_bytes": 37043,
+        "pdf_size_bytes": 0
+      },
+      {
+        "doc_id": "EOB-002",
+        "latency_ms": 0.47,
+        "verifiability": 1.0,
+        "warnings": 1,
+        "risk_flag_count": 0,
+        "copy_ms": 0.04,
+        "docx_size_bytes": 37050,
+        "pdf_size_bytes": 0
+      },
+      {
+        "doc_id": "EOB-003",
+        "latency_ms": 0.78,
+        "verifiability": 1.0,
+        "warnings": 0,
+        "risk_flag_count": 0,
+        "copy_ms": 0.05,
+        "docx_size_bytes": 37055,
+        "pdf_size_bytes": 0
+      },
+      {
+        "doc_id": "EOB-004",
+        "latency_ms": 0.74,
+        "verifiability": 1.0,
+        "warnings": 0,
+        "risk_flag_count": 0,
+        "copy_ms": 0.04,
+        "docx_size_bytes": 37054,
+        "pdf_size_bytes": 0
+      },
+      {
+        "doc_id": "EOB-005",
+        "latency_ms": 0.53,
+        "verifiability": 1.0,
+        "warnings": 0,
+        "risk_flag_count": 1,
+        "copy_ms": 0.04,
+        "docx_size_bytes": 37179,
+        "pdf_size_bytes": 0
+      },
+      {
+        "doc_id": "EOB-006",
+        "latency_ms": 5.24,
+        "verifiability": 1.0,
+        "warnings": 2,
+        "risk_flag_count": 1,
+        "copy_ms": 0.05,
+        "docx_size_bytes": 37198,
+        "pdf_size_bytes": 0
+      },
+      {
+        "doc_id": "EOB-007",
+        "latency_ms": 0.44,
+        "verifiability": 1.0,
+        "warnings": 0,
+        "risk_flag_count": 0,
+        "copy_ms": 0.03,
+        "docx_size_bytes": 37058,
+        "pdf_size_bytes": 0
+      },
+      {
+        "doc_id": "EOB-008",
+        "latency_ms": 0.7,
+        "verifiability": 1.0,
+        "warnings": 0,
+        "risk_flag_count": 0,
+        "copy_ms": 0.04,
+        "docx_size_bytes": 37054,
+        "pdf_size_bytes": 0
+      },
+      {
+        "doc_id": "EOB-009",
+        "latency_ms": 0.47,
+        "verifiability": 1.0,
+        "warnings": 0,
+        "risk_flag_count": 0,
+        "copy_ms": 0.03,
+        "docx_size_bytes": 37056,
+        "pdf_size_bytes": 0
+      },
+      {
+        "doc_id": "EOB-010",
+        "latency_ms": 0.74,
+        "verifiability": 1.0,
+        "warnings": 0,
+        "risk_flag_count": 0,
+        "copy_ms": 0.05,
+        "docx_size_bytes": 37052,
+        "pdf_size_bytes": 0
+      },
+      {
+        "doc_id": "EOB-011",
+        "latency_ms": 0.8,
+        "verifiability": 1.0,
+        "warnings": 0,
+        "risk_flag_count": 1,
+        "copy_ms": 0.05,
+        "docx_size_bytes": 37176,
+        "pdf_size_bytes": 0
+      },
+      {
+        "doc_id": "EOB-012",
+        "latency_ms": 0.49,
+        "verifiability": 1.0,
+        "warnings": 2,
+        "risk_flag_count": 0,
+        "copy_ms": 0.04,
+        "docx_size_bytes": 37056,
+        "pdf_size_bytes": 0
+      },
+      {
+        "doc_id": "EOB-013",
+        "latency_ms": 0.47,
+        "verifiability": 1.0,
+        "warnings": 0,
+        "risk_flag_count": 0,
+        "copy_ms": 0.03,
+        "docx_size_bytes": 37055,
+        "pdf_size_bytes": 0
+      },
+      {
+        "doc_id": "EOB-014",
+        "latency_ms": 0.46,
+        "verifiability": 1.0,
+        "warnings": 0,
+        "risk_flag_count": 0,
+        "copy_ms": 0.03,
+        "docx_size_bytes": 37053,
+        "pdf_size_bytes": 0
+      },
+      {
+        "doc_id": "EOB-015",
+        "latency_ms": 0.44,
+        "verifiability": 1.0,
+        "warnings": 0,
+        "risk_flag_count": 0,
+        "copy_ms": 0.03,
+        "docx_size_bytes": 37055,
+        "pdf_size_bytes": 0
+      },
+      {
+        "doc_id": "EOB-016",
+        "latency_ms": 0.44,
+        "verifiability": 1.0,
+        "warnings": 0,
+        "risk_flag_count": 0,
+        "copy_ms": 0.03,
+        "docx_size_bytes": 37057,
+        "pdf_size_bytes": 0
+      },
+      {
+        "doc_id": "EOB-017",
+        "latency_ms": 4.42,
+        "verifiability": 1.0,
+        "warnings": 0,
+        "risk_flag_count": 1,
+        "copy_ms": 0.04,
+        "docx_size_bytes": 37181,
+        "pdf_size_bytes": 0
+      },
+      {
+        "doc_id": "EOB-018",
+        "latency_ms": 0.49,
+        "verifiability": 1.0,
+        "warnings": 2,
+        "risk_flag_count": 0,
+        "copy_ms": 0.04,
+        "docx_size_bytes": 37059,
+        "pdf_size_bytes": 0
+      },
+      {
+        "doc_id": "EOB-019",
+        "latency_ms": 0.49,
+        "verifiability": 1.0,
+        "warnings": 0,
+        "risk_flag_count": 0,
+        "copy_ms": 0.03,
+        "docx_size_bytes": 37055,
+        "pdf_size_bytes": 0
+      },
+      {
+        "doc_id": "EOB-020",
+        "latency_ms": 0.49,
+        "verifiability": 1.0,
+        "warnings": 0,
+        "risk_flag_count": 0,
+        "copy_ms": 0.03,
+        "docx_size_bytes": 37056,
+        "pdf_size_bytes": 0
+      },
+      {
+        "doc_id": "EOB-021",
+        "latency_ms": 0.49,
+        "verifiability": 1.0,
+        "warnings": 0,
+        "risk_flag_count": 0,
+        "copy_ms": 0.03,
+        "docx_size_bytes": 37054,
+        "pdf_size_bytes": 0
+      },
+      {
+        "doc_id": "EOB-022",
+        "latency_ms": 0.46,
+        "verifiability": 1.0,
+        "warnings": 0,
+        "risk_flag_count": 0,
+        "copy_ms": 0.03,
+        "docx_size_bytes": 37059,
+        "pdf_size_bytes": 0
+      }
+    ],
+    "aggregate": {
+      "documents": 22,
+      "avg_latency_ms": 0.93,
+      "avg_verifiability": 1.0,
+      "total_warnings": 7,
+      "total_risk_flags": 4,
+      "avg_copy_ms": 0.04,
+      "avg_docx_size_bytes": 37077.95,
+      "avg_pdf_size_bytes": 0.0
+    }
+  }
+}

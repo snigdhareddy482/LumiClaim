@@ -1,0 +1,2409 @@
+[
+  {
+    "line_id": "L1",
+    "page": 2,
+    "cell_id": "tbl2:R5C3",
+    "cpt": "99215",
+    "modifier": "25",
+    "billed": 1500.0,
+    "allowed": 1200.0,
+    "insurer_paid": 900.0,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 300.0
+      }
+    ],
+    "patient_resp": 300.0,
+    "doc_id": "EOB-001"
+  },
+  {
+    "line_id": "L2",
+    "page": 2,
+    "cell_id": "tbl2:R6C3",
+    "cpt": "99214",
+    "modifier": "25",
+    "billed": 800.0,
+    "allowed": 600.0,
+    "insurer_paid": 400.0,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 200.0
+      }
+    ],
+    "patient_resp": 200.0,
+    "doc_id": "EOB-001"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 2,
+    "cell_id": "tbl2:R8C3",
+    "cpt": "",
+    "modifier": "",
+    "billed": 2300.0,
+    "allowed": 1800.0,
+    "insurer_paid": 1300.0,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 500.0
+      }
+    ],
+    "patient_resp": 500.0,
+    "doc_id": "EOB-001"
+  },
+  {
+    "line_id": "L1",
+    "page": 2,
+    "cell_id": "tbl3:R4C2",
+    "cpt": "99215",
+    "modifier": "25",
+    "billed": 1500.0,
+    "allowed": 1180.0,
+    "insurer_paid": 880.0,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 320.0
+      }
+    ],
+    "patient_resp": 300.0,
+    "doc_id": "EOB-002"
+  },
+  {
+    "line_id": "L2",
+    "page": 2,
+    "cell_id": "tbl3:R5C2",
+    "cpt": "99214",
+    "modifier": "25",
+    "billed": 760.0,
+    "allowed": 540.0,
+    "insurer_paid": 360.0,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 200.0
+      }
+    ],
+    "patient_resp": 180.0,
+    "doc_id": "EOB-002"
+  },
+  {
+    "line_id": "L3",
+    "page": 3,
+    "cell_id": "tbl5:R4C2",
+    "cpt": "97530",
+    "modifier": "59",
+    "billed": 900.0,
+    "allowed": 600.0,
+    "insurer_paid": 150.0,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 300.0
+      }
+    ],
+    "patient_resp": 450.0,
+    "doc_id": "EOB-002"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 3,
+    "cell_id": "tbl5:R8C2",
+    "cpt": "",
+    "modifier": "",
+    "billed": 3160.0,
+    "allowed": 2320.0,
+    "insurer_paid": 1390.0,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 820.0
+      }
+    ],
+    "patient_resp": 930.0,
+    "doc_id": "EOB-002"
+  },
+  {
+    "line_id": "L1",
+    "page": 4,
+    "cell_id": "tbl6:R9C4",
+    "cpt": "97110",
+    "modifier": "GP",
+    "billed": 163.83,
+    "allowed": 113.91,
+    "insurer_paid": 81.75,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 55.46
+      }
+    ],
+    "patient_resp": 26.62,
+    "doc_id": "EOB-003"
+  },
+  {
+    "line_id": "L2",
+    "page": 2,
+    "cell_id": "tbl2:R18C5",
+    "cpt": "99213",
+    "modifier": "RT",
+    "billed": 243.73,
+    "allowed": 165.04,
+    "insurer_paid": 101.9,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 114.86
+      }
+    ],
+    "patient_resp": 26.97,
+    "doc_id": "EOB-003"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 2,
+    "cell_id": "tbl6:R10C2",
+    "cpt": "",
+    "modifier": "",
+    "billed": 407.56,
+    "allowed": 237.24,
+    "insurer_paid": 183.65,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 170.32
+      }
+    ],
+    "patient_resp": 53.59,
+    "doc_id": "EOB-003"
+  },
+  {
+    "line_id": "L1",
+    "page": 3,
+    "cell_id": "tbl6:R11C4",
+    "cpt": "97530",
+    "modifier": "LT",
+    "billed": 267.35,
+    "allowed": 162.76,
+    "insurer_paid": 65.12,
+    "adjustments": [
+      {
+        "type": "deductible credit",
+        "amount": 67.26
+      },
+      {
+        "type": "contractual",
+        "amount": 83.06
+      }
+    ],
+    "patient_resp": 51.91,
+    "doc_id": "EOB-004"
+  },
+  {
+    "line_id": "L2",
+    "page": 4,
+    "cell_id": "tbl6:R13C4",
+    "cpt": "85025",
+    "modifier": "79",
+    "billed": 68.46,
+    "allowed": 41.58,
+    "insurer_paid": 14.38,
+    "adjustments": [
+      {
+        "type": "deductible credit",
+        "amount": 32.16
+      },
+      {
+        "type": "contractual",
+        "amount": 6.19
+      }
+    ],
+    "patient_resp": 15.73,
+    "doc_id": "EOB-004"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 2,
+    "cell_id": "tbl5:R18C6",
+    "cpt": "",
+    "modifier": "",
+    "billed": 335.81,
+    "allowed": 246.56,
+    "insurer_paid": 79.5,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 89.25
+      },
+      {
+        "type": "deductible credit",
+        "amount": 99.42
+      }
+    ],
+    "patient_resp": 67.64,
+    "doc_id": "EOB-004"
+  },
+  {
+    "line_id": "L1",
+    "page": 3,
+    "cell_id": "tbl4:R6C4",
+    "cpt": "80053",
+    "modifier": "59",
+    "billed": 101.65,
+    "allowed": 70.7,
+    "insurer_paid": 42.56,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 39.18
+      }
+    ],
+    "patient_resp": 19.91,
+    "doc_id": "EOB-005"
+  },
+  {
+    "line_id": "L2",
+    "page": 3,
+    "cell_id": "tbl2:R7C6",
+    "cpt": "80053",
+    "modifier": "76",
+    "billed": 86.95,
+    "allowed": 60.03,
+    "insurer_paid": 30.89,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 41.96
+      }
+    ],
+    "patient_resp": 14.1,
+    "doc_id": "EOB-005"
+  },
+  {
+    "line_id": "L3",
+    "page": 3,
+    "cell_id": "tbl6:R12C2",
+    "cpt": "85025",
+    "modifier": "RT",
+    "billed": 49.41,
+    "allowed": 36.22,
+    "insurer_paid": 18.2,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 23.16
+      }
+    ],
+    "patient_resp": 8.05,
+    "doc_id": "EOB-005"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 4,
+    "cell_id": "tbl4:R11C3",
+    "cpt": "",
+    "modifier": "",
+    "billed": 238.01,
+    "allowed": 133.71,
+    "insurer_paid": 91.65,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 104.3
+      }
+    ],
+    "patient_resp": 42.06,
+    "doc_id": "EOB-005"
+  },
+  {
+    "line_id": "L1",
+    "page": 4,
+    "cell_id": "tbl4:R10C5",
+    "cpt": "85025",
+    "modifier": "KX",
+    "billed": 67.22,
+    "allowed": 49.09,
+    "insurer_paid": 22.59,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 26.71
+      },
+      {
+        "type": "unclassified",
+        "amount": null
+      }
+    ],
+    "patient_resp": 0.96,
+    "doc_id": "EOB-006"
+  },
+  {
+    "line_id": "L2",
+    "page": 3,
+    "cell_id": "tbl2:R12C5",
+    "cpt": "99214",
+    "modifier": "91",
+    "billed": 220.06,
+    "allowed": 154.82,
+    "insurer_paid": 87.84,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 66.52
+      },
+      {
+        "type": "unclassified",
+        "amount": null
+      }
+    ],
+    "patient_resp": 3.15,
+    "doc_id": "EOB-006"
+  },
+  {
+    "line_id": "L3",
+    "page": 4,
+    "cell_id": "tbl3:R18C5",
+    "cpt": "80053",
+    "modifier": "25",
+    "billed": 62.33,
+    "allowed": 40.17,
+    "insurer_paid": 26.91,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 20.04
+      },
+      {
+        "type": "unclassified",
+        "amount": null
+      }
+    ],
+    "patient_resp": 1.34,
+    "doc_id": "EOB-006"
+  },
+  {
+    "line_id": "L4",
+    "page": 4,
+    "cell_id": "tbl5:R12C4",
+    "cpt": "97110",
+    "modifier": "25",
+    "billed": 114.5,
+    "allowed": 86.33,
+    "insurer_paid": 41.71,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 35.59
+      },
+      {
+        "type": "unclassified",
+        "amount": null
+      }
+    ],
+    "patient_resp": 5.16,
+    "doc_id": "EOB-006"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 2,
+    "cell_id": "tbl4:R16C5",
+    "cpt": "",
+    "modifier": "",
+    "billed": 464.11,
+    "allowed": 315.25,
+    "insurer_paid": 179.05,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 148.86
+      },
+      {
+        "type": "unclassified",
+        "amount": null
+      }
+    ],
+    "patient_resp": 10.61,
+    "doc_id": "EOB-006"
+  },
+  {
+    "line_id": "L1",
+    "page": 4,
+    "cell_id": "tbl3:R11C2",
+    "cpt": "99214",
+    "modifier": "25",
+    "billed": 302.74,
+    "allowed": 219.77,
+    "insurer_paid": 148.67,
+    "adjustments": [
+      {
+        "type": "rebundle",
+        "amount": 26.75
+      },
+      {
+        "type": "contractual",
+        "amount": 80.27
+      }
+    ],
+    "patient_resp": 47.05,
+    "doc_id": "EOB-007"
+  },
+  {
+    "line_id": "L2",
+    "page": 3,
+    "cell_id": "tbl5:R16C2",
+    "cpt": "80053",
+    "modifier": "57",
+    "billed": 87.96,
+    "allowed": 68.1,
+    "insurer_paid": 45.14,
+    "adjustments": [
+      {
+        "type": "rebundle",
+        "amount": 5.64
+      },
+      {
+        "type": "contractual",
+        "amount": 16.94
+      }
+    ],
+    "patient_resp": 20.24,
+    "doc_id": "EOB-007"
+  },
+  {
+    "line_id": "L3",
+    "page": 4,
+    "cell_id": "tbl2:R12C4",
+    "cpt": "97530",
+    "modifier": "KX",
+    "billed": 276.96,
+    "allowed": 184.17,
+    "insurer_paid": 113.03,
+    "adjustments": [
+      {
+        "type": "rebundle",
+        "amount": 30.03
+      },
+      {
+        "type": "contractual",
+        "amount": 90.08
+      }
+    ],
+    "patient_resp": 43.82,
+    "doc_id": "EOB-007"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 2,
+    "cell_id": "tbl6:R9C2",
+    "cpt": "",
+    "modifier": "",
+    "billed": 667.66,
+    "allowed": 480.37,
+    "insurer_paid": 306.84,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 187.29
+      },
+      {
+        "type": "rebundle",
+        "amount": 62.42
+      }
+    ],
+    "patient_resp": 111.11,
+    "doc_id": "EOB-007"
+  },
+  {
+    "line_id": "L1",
+    "page": 4,
+    "cell_id": "tbl3:R16C2",
+    "cpt": "80053",
+    "modifier": "RT",
+    "billed": 130.92,
+    "allowed": 99.8,
+    "insurer_paid": 60.74,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 54.21
+      }
+    ],
+    "patient_resp": 15.97,
+    "doc_id": "EOB-008"
+  },
+  {
+    "line_id": "L2",
+    "page": 4,
+    "cell_id": "tbl6:R6C6",
+    "cpt": "99215",
+    "modifier": "KX",
+    "billed": 358.83,
+    "allowed": 290.77,
+    "insurer_paid": 179.41,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 139.28
+      }
+    ],
+    "patient_resp": 40.14,
+    "doc_id": "EOB-008"
+  },
+  {
+    "line_id": "L3",
+    "page": 3,
+    "cell_id": "tbl6:R17C5",
+    "cpt": "G0283",
+    "modifier": "25",
+    "billed": 62.45,
+    "allowed": 53.98,
+    "insurer_paid": 37.7,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 16.77
+      }
+    ],
+    "patient_resp": 7.98,
+    "doc_id": "EOB-008"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 3,
+    "cell_id": "tbl5:R18C3",
+    "cpt": "",
+    "modifier": "",
+    "billed": 552.2,
+    "allowed": 341.94,
+    "insurer_paid": 277.85,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 210.26
+      }
+    ],
+    "patient_resp": 64.09,
+    "doc_id": "EOB-008"
+  },
+  {
+    "line_id": "L1",
+    "page": 4,
+    "cell_id": "tbl5:R9C4",
+    "cpt": "99214",
+    "modifier": "KX",
+    "billed": 331.33,
+    "allowed": 222.25,
+    "insurer_paid": 124.57,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 155.19
+      }
+    ],
+    "patient_resp": 51.57,
+    "doc_id": "EOB-009"
+  },
+  {
+    "line_id": "L2",
+    "page": 3,
+    "cell_id": "tbl2:R17C5",
+    "cpt": "99212",
+    "modifier": "76",
+    "billed": 133.0,
+    "allowed": 96.6,
+    "insurer_paid": 68.81,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 50.18
+      }
+    ],
+    "patient_resp": 14.01,
+    "doc_id": "EOB-009"
+  },
+  {
+    "line_id": "L3",
+    "page": 3,
+    "cell_id": "tbl2:R18C4",
+    "cpt": "85025",
+    "modifier": "GP",
+    "billed": 63.77,
+    "allowed": 44.33,
+    "insurer_paid": 32.58,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 20.94
+      }
+    ],
+    "patient_resp": 10.25,
+    "doc_id": "EOB-009"
+  },
+  {
+    "line_id": "L4",
+    "page": 2,
+    "cell_id": "tbl6:R10C4",
+    "cpt": "G0283",
+    "modifier": "GP",
+    "billed": 61.73,
+    "allowed": 42.91,
+    "insurer_paid": 30.64,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 24.14
+      }
+    ],
+    "patient_resp": 6.95,
+    "doc_id": "EOB-009"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 2,
+    "cell_id": "tbl5:R13C4",
+    "cpt": "",
+    "modifier": "",
+    "billed": 589.83,
+    "allowed": 339.38,
+    "insurer_paid": 256.6,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 250.45
+      }
+    ],
+    "patient_resp": 82.78,
+    "doc_id": "EOB-009"
+  },
+  {
+    "line_id": "L1",
+    "page": 3,
+    "cell_id": "tbl4:R4C3",
+    "cpt": "85025",
+    "modifier": "79",
+    "billed": 87.04,
+    "allowed": 62.02,
+    "insurer_paid": 21.81,
+    "adjustments": [
+      {
+        "type": "deductible credit",
+        "amount": 31.22
+      },
+      {
+        "type": "contractual",
+        "amount": 6.58
+      }
+    ],
+    "patient_resp": 27.43,
+    "doc_id": "EOB-010"
+  },
+  {
+    "line_id": "L2",
+    "page": 4,
+    "cell_id": "tbl3:R9C4",
+    "cpt": "97110",
+    "modifier": "57",
+    "billed": 118.63,
+    "allowed": 81.34,
+    "insurer_paid": 30.46,
+    "adjustments": [
+      {
+        "type": "deductible credit",
+        "amount": 38.49
+      },
+      {
+        "type": "contractual",
+        "amount": 23.67
+      }
+    ],
+    "patient_resp": 26.01,
+    "doc_id": "EOB-010"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 2,
+    "cell_id": "tbl6:R17C2",
+    "cpt": "",
+    "modifier": "",
+    "billed": 205.67,
+    "allowed": 175.42,
+    "insurer_paid": 52.27,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 30.25
+      },
+      {
+        "type": "deductible credit",
+        "amount": 69.71
+      }
+    ],
+    "patient_resp": 53.44,
+    "doc_id": "EOB-010"
+  },
+  {
+    "line_id": "L1",
+    "page": 4,
+    "cell_id": "tbl2:R17C4",
+    "cpt": "80053",
+    "modifier": "RT",
+    "billed": 116.46,
+    "allowed": 91.09,
+    "insurer_paid": 45.8,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 46.29
+      }
+    ],
+    "patient_resp": 24.37,
+    "doc_id": "EOB-011"
+  },
+  {
+    "line_id": "L2",
+    "page": 3,
+    "cell_id": "tbl3:R7C2",
+    "cpt": "80053",
+    "modifier": "76",
+    "billed": 82.81,
+    "allowed": 66.18,
+    "insurer_paid": 37.82,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 32.73
+      }
+    ],
+    "patient_resp": 12.26,
+    "doc_id": "EOB-011"
+  },
+  {
+    "line_id": "L3",
+    "page": 3,
+    "cell_id": "tbl5:R17C5",
+    "cpt": "97110",
+    "modifier": "RT",
+    "billed": 128.86,
+    "allowed": 83.74,
+    "insurer_paid": 54.21,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 54.24
+      }
+    ],
+    "patient_resp": 20.41,
+    "doc_id": "EOB-011"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 2,
+    "cell_id": "tbl4:R12C2",
+    "cpt": "",
+    "modifier": "",
+    "billed": 328.13,
+    "allowed": 194.87,
+    "insurer_paid": 137.83,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 133.26
+      }
+    ],
+    "patient_resp": 57.04,
+    "doc_id": "EOB-011"
+  },
+  {
+    "line_id": "L1",
+    "page": 2,
+    "cell_id": "tbl2:R13C5",
+    "cpt": "85025",
+    "modifier": "57",
+    "billed": 72.87,
+    "allowed": 54.03,
+    "insurer_paid": 30.78,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 22.97
+      },
+      {
+        "type": "unclassified",
+        "amount": null
+      }
+    ],
+    "patient_resp": 3.24,
+    "doc_id": "EOB-012"
+  },
+  {
+    "line_id": "L2",
+    "page": 2,
+    "cell_id": "tbl3:R18C3",
+    "cpt": "80053",
+    "modifier": "RT",
+    "billed": 120.94,
+    "allowed": 80.69,
+    "insurer_paid": 42.93,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 47.01
+      },
+      {
+        "type": "unclassified",
+        "amount": null
+      }
+    ],
+    "patient_resp": 1.97,
+    "doc_id": "EOB-012"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 2,
+    "cell_id": "tbl5:R18C2",
+    "cpt": "",
+    "modifier": "",
+    "billed": 193.81,
+    "allowed": 123.83,
+    "insurer_paid": 73.71,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 69.98
+      },
+      {
+        "type": "unclassified",
+        "amount": null
+      }
+    ],
+    "patient_resp": 5.21,
+    "doc_id": "EOB-012"
+  },
+  {
+    "line_id": "L1",
+    "page": 4,
+    "cell_id": "tbl4:R18C3",
+    "cpt": "93000",
+    "modifier": "GP",
+    "billed": 123.75,
+    "allowed": 75.29,
+    "insurer_paid": 53.24,
+    "adjustments": [
+      {
+        "type": "rebundle",
+        "amount": 12.69
+      },
+      {
+        "type": "contractual",
+        "amount": 38.07
+      }
+    ],
+    "patient_resp": 19.75,
+    "doc_id": "EOB-013"
+  },
+  {
+    "line_id": "L2",
+    "page": 2,
+    "cell_id": "tbl4:R16C3",
+    "cpt": "97530",
+    "modifier": "91",
+    "billed": 301.71,
+    "allowed": 198.08,
+    "insurer_paid": 127.06,
+    "adjustments": [
+      {
+        "type": "rebundle",
+        "amount": 33.49
+      },
+      {
+        "type": "contractual",
+        "amount": 100.46
+      }
+    ],
+    "patient_resp": 40.7,
+    "doc_id": "EOB-013"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 3,
+    "cell_id": "tbl3:R10C3",
+    "cpt": "",
+    "modifier": "",
+    "billed": 425.46,
+    "allowed": 286.93,
+    "insurer_paid": 180.3,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 138.53
+      },
+      {
+        "type": "rebundle",
+        "amount": 46.18
+      }
+    ],
+    "patient_resp": 60.45,
+    "doc_id": "EOB-013"
+  },
+  {
+    "line_id": "L1",
+    "page": 4,
+    "cell_id": "tbl2:R6C2",
+    "cpt": "93000",
+    "modifier": "57",
+    "billed": 86.17,
+    "allowed": 74.51,
+    "insurer_paid": 57.65,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 18.5
+      }
+    ],
+    "patient_resp": 10.02,
+    "doc_id": "EOB-014"
+  },
+  {
+    "line_id": "L2",
+    "page": 3,
+    "cell_id": "tbl4:R9C3",
+    "cpt": "G0283",
+    "modifier": "91",
+    "billed": 80.31,
+    "allowed": 68.9,
+    "insurer_paid": 48.94,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 24.34
+      }
+    ],
+    "patient_resp": 7.03,
+    "doc_id": "EOB-014"
+  },
+  {
+    "line_id": "L3",
+    "page": 4,
+    "cell_id": "tbl4:R15C2",
+    "cpt": "99215",
+    "modifier": "59",
+    "billed": 398.12,
+    "allowed": 289.66,
+    "insurer_paid": 203.26,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 135.13
+      }
+    ],
+    "patient_resp": 59.73,
+    "doc_id": "EOB-014"
+  },
+  {
+    "line_id": "L4",
+    "page": 2,
+    "cell_id": "tbl2:R6C2",
+    "cpt": "85025",
+    "modifier": "57",
+    "billed": 84.03,
+    "allowed": 63.27,
+    "insurer_paid": 42.82,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 31.7
+      }
+    ],
+    "patient_resp": 9.51,
+    "doc_id": "EOB-014"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 3,
+    "cell_id": "tbl2:R5C3",
+    "cpt": "",
+    "modifier": "",
+    "billed": 648.63,
+    "allowed": 438.96,
+    "insurer_paid": 352.67,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 209.67
+      }
+    ],
+    "patient_resp": 86.29,
+    "doc_id": "EOB-014"
+  },
+  {
+    "line_id": "L1",
+    "page": 4,
+    "cell_id": "tbl2:R6C2",
+    "cpt": "85025",
+    "modifier": "57",
+    "billed": 91.85,
+    "allowed": 70.03,
+    "insurer_paid": 39.35,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 42.72
+      }
+    ],
+    "patient_resp": 9.78,
+    "doc_id": "EOB-015"
+  },
+  {
+    "line_id": "L2",
+    "page": 3,
+    "cell_id": "tbl4:R14C3",
+    "cpt": "93000",
+    "modifier": "RT",
+    "billed": 108.71,
+    "allowed": 88.33,
+    "insurer_paid": 63.06,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 25.67
+      }
+    ],
+    "patient_resp": 19.98,
+    "doc_id": "EOB-015"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 2,
+    "cell_id": "tbl2:R8C4",
+    "cpt": "",
+    "modifier": "",
+    "billed": 200.56,
+    "allowed": 132.17,
+    "insurer_paid": 102.41,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 68.39
+      }
+    ],
+    "patient_resp": 29.76,
+    "doc_id": "EOB-015"
+  },
+  {
+    "line_id": "L1",
+    "page": 2,
+    "cell_id": "tbl6:R18C6",
+    "cpt": "93000",
+    "modifier": "91",
+    "billed": 84.87,
+    "allowed": 60.26,
+    "insurer_paid": 19.08,
+    "adjustments": [
+      {
+        "type": "deductible credit",
+        "amount": 26.13
+      },
+      {
+        "type": "contractual",
+        "amount": 19.33
+      }
+    ],
+    "patient_resp": 20.33,
+    "doc_id": "EOB-016"
+  },
+  {
+    "line_id": "L2",
+    "page": 2,
+    "cell_id": "tbl6:R8C4",
+    "cpt": "97530",
+    "modifier": "GP",
+    "billed": 294.75,
+    "allowed": 201.66,
+    "insurer_paid": 90.28,
+    "adjustments": [
+      {
+        "type": "deductible credit",
+        "amount": 55.35
+      },
+      {
+        "type": "contractual",
+        "amount": 77.5
+      }
+    ],
+    "patient_resp": 71.62,
+    "doc_id": "EOB-016"
+  },
+  {
+    "line_id": "L3",
+    "page": 2,
+    "cell_id": "tbl5:R15C3",
+    "cpt": "99215",
+    "modifier": "LT",
+    "billed": 382.69,
+    "allowed": 294.03,
+    "insurer_paid": 123.51,
+    "adjustments": [
+      {
+        "type": "deductible credit",
+        "amount": 39.81
+      },
+      {
+        "type": "contractual",
+        "amount": 108.83
+      }
+    ],
+    "patient_resp": 110.54,
+    "doc_id": "EOB-016"
+  },
+  {
+    "line_id": "L4",
+    "page": 3,
+    "cell_id": "tbl2:R7C3",
+    "cpt": "G0283",
+    "modifier": "RT",
+    "billed": 88.55,
+    "allowed": 61.01,
+    "insurer_paid": 19.26,
+    "adjustments": [
+      {
+        "type": "deductible credit",
+        "amount": 41.47
+      },
+      {
+        "type": "contractual",
+        "amount": 4.06
+      }
+    ],
+    "patient_resp": 23.76,
+    "doc_id": "EOB-016"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 4,
+    "cell_id": "tbl4:R10C5",
+    "cpt": "",
+    "modifier": "",
+    "billed": 850.86,
+    "allowed": 641.14,
+    "insurer_paid": 252.13,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 209.72
+      },
+      {
+        "type": "deductible credit",
+        "amount": 162.76
+      }
+    ],
+    "patient_resp": 226.25,
+    "doc_id": "EOB-016"
+  },
+  {
+    "line_id": "L1",
+    "page": 3,
+    "cell_id": "tbl3:R5C3",
+    "cpt": "80053",
+    "modifier": "LT",
+    "billed": 73.07,
+    "allowed": 45.65,
+    "insurer_paid": 29.48,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 31.19
+      }
+    ],
+    "patient_resp": 12.4,
+    "doc_id": "EOB-017"
+  },
+  {
+    "line_id": "L2",
+    "page": 3,
+    "cell_id": "tbl2:R18C4",
+    "cpt": "80053",
+    "modifier": "76",
+    "billed": 139.99,
+    "allowed": 102.03,
+    "insurer_paid": 56.53,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 54.16
+      }
+    ],
+    "patient_resp": 29.3,
+    "doc_id": "EOB-017"
+  },
+  {
+    "line_id": "L3",
+    "page": 2,
+    "cell_id": "tbl6:R5C4",
+    "cpt": "G0283",
+    "modifier": "91",
+    "billed": 74.86,
+    "allowed": 49.81,
+    "insurer_paid": 25.83,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 38.51
+      }
+    ],
+    "patient_resp": 10.52,
+    "doc_id": "EOB-017"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 3,
+    "cell_id": "tbl4:R11C3",
+    "cpt": "",
+    "modifier": "",
+    "billed": 287.92,
+    "allowed": 164.06,
+    "insurer_paid": 111.84,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 123.86
+      }
+    ],
+    "patient_resp": 52.22,
+    "doc_id": "EOB-017"
+  },
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 200.0,
+    "allowed": 150.0,
+    "insurer_paid": 100.0,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 50.0
+      }
+    ],
+    "patient_resp": 50.0,
+    "doc_id": "EOB-018"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 1,
+    "cell_id": "manual:TOTAL",
+    "cpt": "",
+    "modifier": "",
+    "billed": 200.0,
+    "allowed": 150.0,
+    "insurer_paid": 100.0,
+    "adjustments": [
+      {
+        "type": "manual",
+        "amount": 50.0
+      }
+    ],
+    "patient_resp": 50.0,
+    "doc_id": "EOB-018"
+  },
+  {
+    "line_id": "L1",
+    "page": 3,
+    "cell_id": "tbl6:R12C4",
+    "cpt": "G0283",
+    "modifier": "LT",
+    "billed": 69.64,
+    "allowed": 42.53,
+    "insurer_paid": 27.58,
+    "adjustments": [
+      {
+        "type": "rebundle",
+        "amount": 7.75
+      },
+      {
+        "type": "contractual",
+        "amount": 23.25
+      }
+    ],
+    "patient_resp": 11.06,
+    "doc_id": "EOB-019"
+  },
+  {
+    "line_id": "L2",
+    "page": 3,
+    "cell_id": "tbl3:R11C2",
+    "cpt": "93000",
+    "modifier": "RT",
+    "billed": 159.45,
+    "allowed": 116.9,
+    "insurer_paid": 66.37,
+    "adjustments": [
+      {
+        "type": "rebundle",
+        "amount": 14.99
+      },
+      {
+        "type": "contractual",
+        "amount": 44.98
+      }
+    ],
+    "patient_resp": 33.11,
+    "doc_id": "EOB-019"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 3,
+    "cell_id": "tbl2:R17C3",
+    "cpt": "",
+    "modifier": "",
+    "billed": 229.09,
+    "allowed": 160.86,
+    "insurer_paid": 93.95,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 68.23
+      },
+      {
+        "type": "rebundle",
+        "amount": 22.74
+      }
+    ],
+    "patient_resp": 44.17,
+    "doc_id": "EOB-019"
+  },
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 200.0,
+    "allowed": 150.0,
+    "insurer_paid": 100.0,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 50.0
+      }
+    ],
+    "patient_resp": 50.0,
+    "doc_id": "EOB-020"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 1,
+    "cell_id": "manual:TOTAL",
+    "cpt": "",
+    "modifier": "",
+    "billed": 200.0,
+    "allowed": 150.0,
+    "insurer_paid": 100.0,
+    "adjustments": [
+      {
+        "type": "manual",
+        "amount": 50.0
+      }
+    ],
+    "patient_resp": 50.0,
+    "doc_id": "EOB-020"
+  },
+  {
+    "line_id": "L1",
+    "page": 4,
+    "cell_id": "tbl5:R9C3",
+    "cpt": "80053",
+    "modifier": "57",
+    "billed": 138.25,
+    "allowed": 91.06,
+    "insurer_paid": 57.58,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 61.09
+      }
+    ],
+    "patient_resp": 19.58,
+    "doc_id": "EOB-021"
+  },
+  {
+    "line_id": "L2",
+    "page": 2,
+    "cell_id": "tbl3:R6C3",
+    "cpt": "99213",
+    "modifier": "59",
+    "billed": 220.72,
+    "allowed": 158.65,
+    "insurer_paid": 100.86,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 86.79
+      }
+    ],
+    "patient_resp": 33.07,
+    "doc_id": "EOB-021"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 4,
+    "cell_id": "tbl6:R8C4",
+    "cpt": "",
+    "modifier": "",
+    "billed": 358.97,
+    "allowed": 211.09,
+    "insurer_paid": 158.44,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 147.88
+      }
+    ],
+    "patient_resp": 52.65,
+    "doc_id": "EOB-021"
+  },
+  {
+    "line_id": "L1",
+    "page": 4,
+    "cell_id": "tbl6:R15C3",
+    "cpt": "93000",
+    "modifier": "25",
+    "billed": 147.57,
+    "allowed": 104.29,
+    "insurer_paid": 44.51,
+    "adjustments": [
+      {
+        "type": "deductible credit",
+        "amount": 24.2
+      },
+      {
+        "type": "contractual",
+        "amount": 33.08
+      }
+    ],
+    "patient_resp": 45.78,
+    "doc_id": "EOB-022"
+  },
+  {
+    "line_id": "L2",
+    "page": 4,
+    "cell_id": "tbl6:R11C2",
+    "cpt": "97110",
+    "modifier": "RT",
+    "billed": 146.38,
+    "allowed": 105.3,
+    "insurer_paid": 42.08,
+    "adjustments": [
+      {
+        "type": "deductible credit",
+        "amount": 51.53
+      },
+      {
+        "type": "contractual",
+        "amount": 19.58
+      }
+    ],
+    "patient_resp": 33.19,
+    "doc_id": "EOB-022"
+  },
+  {
+    "line_id": "L3",
+    "page": 4,
+    "cell_id": "tbl6:R14C4",
+    "cpt": "80053",
+    "modifier": "91",
+    "billed": 89.73,
+    "allowed": 68.34,
+    "insurer_paid": 25.27,
+    "adjustments": [
+      {
+        "type": "deductible credit",
+        "amount": 25.99
+      },
+      {
+        "type": "contractual",
+        "amount": 11.33
+      }
+    ],
+    "patient_resp": 27.14,
+    "doc_id": "EOB-022"
+  },
+  {
+    "line_id": "L4",
+    "page": 4,
+    "cell_id": "tbl3:R18C2",
+    "cpt": "99215",
+    "modifier": "GP",
+    "billed": 359.74,
+    "allowed": 218.7,
+    "insurer_paid": 67.33,
+    "adjustments": [
+      {
+        "type": "deductible credit",
+        "amount": 78.79
+      },
+      {
+        "type": "contractual",
+        "amount": 144.83
+      }
+    ],
+    "patient_resp": 68.79,
+    "doc_id": "EOB-022"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 4,
+    "cell_id": "tbl6:R5C3",
+    "cpt": "",
+    "modifier": "",
+    "billed": 743.42,
+    "allowed": 534.6,
+    "insurer_paid": 179.19,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 208.82
+      },
+      {
+        "type": "deductible credit",
+        "amount": 180.51
+      }
+    ],
+    "patient_resp": 174.9,
+    "doc_id": "EOB-022"
+  },
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 100,
+    "allowed": 80,
+    "insurer_paid": 60,
+    "adjustments": [],
+    "patient_resp": 40,
+    "doc_id": "EOB-023"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 1,
+    "cell_id": "manual:TOTAL",
+    "cpt": "",
+    "modifier": "",
+    "billed": 100.0,
+    "allowed": 80.0,
+    "insurer_paid": 60.0,
+    "adjustments": [],
+    "patient_resp": 40.0,
+    "doc_id": "EOB-023"
+  },
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 110,
+    "allowed": 85,
+    "insurer_paid": 63,
+    "adjustments": [],
+    "patient_resp": 42,
+    "doc_id": "EOB-024"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 1,
+    "cell_id": "manual:TOTAL",
+    "cpt": "",
+    "modifier": "",
+    "billed": 110.0,
+    "allowed": 85.0,
+    "insurer_paid": 63.0,
+    "adjustments": [],
+    "patient_resp": 42.0,
+    "doc_id": "EOB-024"
+  },
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 120,
+    "allowed": 90,
+    "insurer_paid": 66,
+    "adjustments": [],
+    "patient_resp": 44,
+    "doc_id": "EOB-025"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 1,
+    "cell_id": "manual:TOTAL",
+    "cpt": "",
+    "modifier": "",
+    "billed": 120.0,
+    "allowed": 90.0,
+    "insurer_paid": 66.0,
+    "adjustments": [],
+    "patient_resp": 44.0,
+    "doc_id": "EOB-025"
+  },
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 200.0,
+    "allowed": 150.0,
+    "insurer_paid": 100.0,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 50.0
+      }
+    ],
+    "patient_resp": 50.0,
+    "doc_id": "EOB-026"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 1,
+    "cell_id": "manual:TOTAL",
+    "cpt": "",
+    "modifier": "",
+    "billed": 200.0,
+    "allowed": 150.0,
+    "insurer_paid": 100.0,
+    "adjustments": [
+      {
+        "type": "manual",
+        "amount": 50.0
+      }
+    ],
+    "patient_resp": 50.0,
+    "doc_id": "EOB-026"
+  },
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 100,
+    "allowed": 80,
+    "insurer_paid": 60,
+    "adjustments": [],
+    "patient_resp": 40,
+    "doc_id": "EOB-029"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 1,
+    "cell_id": "manual:TOTAL",
+    "cpt": "",
+    "modifier": "",
+    "billed": 100.0,
+    "allowed": 80.0,
+    "insurer_paid": 60.0,
+    "adjustments": [],
+    "patient_resp": 40.0,
+    "doc_id": "EOB-029"
+  },
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 110,
+    "allowed": 85,
+    "insurer_paid": 63,
+    "adjustments": [],
+    "patient_resp": 42,
+    "doc_id": "EOB-030"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 1,
+    "cell_id": "manual:TOTAL",
+    "cpt": "",
+    "modifier": "",
+    "billed": 110.0,
+    "allowed": 85.0,
+    "insurer_paid": 63.0,
+    "adjustments": [],
+    "patient_resp": 42.0,
+    "doc_id": "EOB-030"
+  },
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 120,
+    "allowed": 90,
+    "insurer_paid": 66,
+    "adjustments": [],
+    "patient_resp": 44,
+    "doc_id": "EOB-031"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 1,
+    "cell_id": "manual:TOTAL",
+    "cpt": "",
+    "modifier": "",
+    "billed": 120.0,
+    "allowed": 90.0,
+    "insurer_paid": 66.0,
+    "adjustments": [],
+    "patient_resp": 44.0,
+    "doc_id": "EOB-031"
+  },
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 100,
+    "allowed": 80,
+    "insurer_paid": 60,
+    "adjustments": [],
+    "patient_resp": 40,
+    "doc_id": "EOB-033"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 1,
+    "cell_id": "manual:TOTAL",
+    "cpt": "",
+    "modifier": "",
+    "billed": 100.0,
+    "allowed": 80.0,
+    "insurer_paid": 60.0,
+    "adjustments": [],
+    "patient_resp": 40.0,
+    "doc_id": "EOB-033"
+  },
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 110,
+    "allowed": 85,
+    "insurer_paid": 63,
+    "adjustments": [],
+    "patient_resp": 42,
+    "doc_id": "EOB-034"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 1,
+    "cell_id": "manual:TOTAL",
+    "cpt": "",
+    "modifier": "",
+    "billed": 110.0,
+    "allowed": 85.0,
+    "insurer_paid": 63.0,
+    "adjustments": [],
+    "patient_resp": 42.0,
+    "doc_id": "EOB-034"
+  },
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 120,
+    "allowed": 90,
+    "insurer_paid": 66,
+    "adjustments": [],
+    "patient_resp": 44,
+    "doc_id": "EOB-035"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 1,
+    "cell_id": "manual:TOTAL",
+    "cpt": "",
+    "modifier": "",
+    "billed": 120.0,
+    "allowed": 90.0,
+    "insurer_paid": 66.0,
+    "adjustments": [],
+    "patient_resp": 44.0,
+    "doc_id": "EOB-035"
+  },
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 200.0,
+    "allowed": 150.0,
+    "insurer_paid": 100.0,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 50.0
+      }
+    ],
+    "patient_resp": 50.0,
+    "doc_id": "EOB-036"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 1,
+    "cell_id": "manual:TOTAL",
+    "cpt": "",
+    "modifier": "",
+    "billed": 200.0,
+    "allowed": 150.0,
+    "insurer_paid": 100.0,
+    "adjustments": [
+      {
+        "type": "manual",
+        "amount": 50.0
+      }
+    ],
+    "patient_resp": 50.0,
+    "doc_id": "EOB-036"
+  },
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 100,
+    "allowed": 80,
+    "insurer_paid": 60,
+    "adjustments": [],
+    "patient_resp": 40,
+    "doc_id": "EOB-039"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 1,
+    "cell_id": "manual:TOTAL",
+    "cpt": "",
+    "modifier": "",
+    "billed": 100.0,
+    "allowed": 80.0,
+    "insurer_paid": 60.0,
+    "adjustments": [],
+    "patient_resp": 40.0,
+    "doc_id": "EOB-039"
+  },
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 110,
+    "allowed": 85,
+    "insurer_paid": 63,
+    "adjustments": [],
+    "patient_resp": 42,
+    "doc_id": "EOB-040"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 1,
+    "cell_id": "manual:TOTAL",
+    "cpt": "",
+    "modifier": "",
+    "billed": 110.0,
+    "allowed": 85.0,
+    "insurer_paid": 63.0,
+    "adjustments": [],
+    "patient_resp": 42.0,
+    "doc_id": "EOB-040"
+  },
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 120,
+    "allowed": 90,
+    "insurer_paid": 66,
+    "adjustments": [],
+    "patient_resp": 44,
+    "doc_id": "EOB-041"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 1,
+    "cell_id": "manual:TOTAL",
+    "cpt": "",
+    "modifier": "",
+    "billed": 120.0,
+    "allowed": 90.0,
+    "insurer_paid": 66.0,
+    "adjustments": [],
+    "patient_resp": 44.0,
+    "doc_id": "EOB-041"
+  },
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 200.0,
+    "allowed": 150.0,
+    "insurer_paid": 100.0,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 50.0
+      }
+    ],
+    "patient_resp": 50.0,
+    "doc_id": "EOB-042"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 1,
+    "cell_id": "manual:TOTAL",
+    "cpt": "",
+    "modifier": "",
+    "billed": 200.0,
+    "allowed": 150.0,
+    "insurer_paid": 100.0,
+    "adjustments": [
+      {
+        "type": "manual",
+        "amount": 50.0
+      }
+    ],
+    "patient_resp": 50.0,
+    "doc_id": "EOB-042"
+  },
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 100,
+    "allowed": 80,
+    "insurer_paid": 60,
+    "adjustments": [],
+    "patient_resp": 40,
+    "doc_id": "EOB-045"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 1,
+    "cell_id": "manual:TOTAL",
+    "cpt": "",
+    "modifier": "",
+    "billed": 100.0,
+    "allowed": 80.0,
+    "insurer_paid": 60.0,
+    "adjustments": [],
+    "patient_resp": 40.0,
+    "doc_id": "EOB-045"
+  },
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 110,
+    "allowed": 85,
+    "insurer_paid": 63,
+    "adjustments": [],
+    "patient_resp": 42,
+    "doc_id": "EOB-046"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 1,
+    "cell_id": "manual:TOTAL",
+    "cpt": "",
+    "modifier": "",
+    "billed": 110.0,
+    "allowed": 85.0,
+    "insurer_paid": 63.0,
+    "adjustments": [],
+    "patient_resp": 42.0,
+    "doc_id": "EOB-046"
+  },
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 120,
+    "allowed": 90,
+    "insurer_paid": 66,
+    "adjustments": [],
+    "patient_resp": 44,
+    "doc_id": "EOB-047"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 1,
+    "cell_id": "manual:TOTAL",
+    "cpt": "",
+    "modifier": "",
+    "billed": 120.0,
+    "allowed": 90.0,
+    "insurer_paid": 66.0,
+    "adjustments": [],
+    "patient_resp": 44.0,
+    "doc_id": "EOB-047"
+  },
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 200.0,
+    "allowed": 150.0,
+    "insurer_paid": 100.0,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 50.0
+      }
+    ],
+    "patient_resp": 50.0,
+    "doc_id": "EOB-048"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 1,
+    "cell_id": "manual:TOTAL",
+    "cpt": "",
+    "modifier": "",
+    "billed": 200.0,
+    "allowed": 150.0,
+    "insurer_paid": 100.0,
+    "adjustments": [
+      {
+        "type": "manual",
+        "amount": 50.0
+      }
+    ],
+    "patient_resp": 50.0,
+    "doc_id": "EOB-048"
+  },
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 100,
+    "allowed": 80,
+    "insurer_paid": 60,
+    "adjustments": [],
+    "patient_resp": 40,
+    "doc_id": "EOB-051"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 1,
+    "cell_id": "manual:TOTAL",
+    "cpt": "",
+    "modifier": "",
+    "billed": 100.0,
+    "allowed": 80.0,
+    "insurer_paid": 60.0,
+    "adjustments": [],
+    "patient_resp": 40.0,
+    "doc_id": "EOB-051"
+  },
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 110,
+    "allowed": 85,
+    "insurer_paid": 63,
+    "adjustments": [],
+    "patient_resp": 42,
+    "doc_id": "EOB-052"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 1,
+    "cell_id": "manual:TOTAL",
+    "cpt": "",
+    "modifier": "",
+    "billed": 110.0,
+    "allowed": 85.0,
+    "insurer_paid": 63.0,
+    "adjustments": [],
+    "patient_resp": 42.0,
+    "doc_id": "EOB-052"
+  },
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 120,
+    "allowed": 90,
+    "insurer_paid": 66,
+    "adjustments": [],
+    "patient_resp": 44,
+    "doc_id": "EOB-053"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 1,
+    "cell_id": "manual:TOTAL",
+    "cpt": "",
+    "modifier": "",
+    "billed": 120.0,
+    "allowed": 90.0,
+    "insurer_paid": 66.0,
+    "adjustments": [],
+    "patient_resp": 44.0,
+    "doc_id": "EOB-053"
+  },
+  {
+    "line_id": "R1",
+    "billed": 100.0,
+    "allowed": 80.0,
+    "insurer_paid": 60.0,
+    "patient_resp": 40.0,
+    "doc_id": "EOB-TEST",
+    "page": 1,
+    "cell_id": "manual:R1C1"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 1,
+    "cell_id": "manual:TOTAL",
+    "cpt": "",
+    "modifier": "",
+    "billed": 100.0,
+    "allowed": 80.0,
+    "insurer_paid": 60.0,
+    "adjustments": [],
+    "patient_resp": 40.0,
+    "doc_id": "EOB-TEST"
+  },
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 200.0,
+    "allowed": 150.0,
+    "insurer_paid": 100.0,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 50.0
+      }
+    ],
+    "patient_resp": 50.0,
+    "doc_id": "EOB-054"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 1,
+    "cell_id": "manual:TOTAL",
+    "cpt": "",
+    "modifier": "",
+    "billed": 200.0,
+    "allowed": 150.0,
+    "insurer_paid": 100.0,
+    "adjustments": [
+      {
+        "type": "manual",
+        "amount": 50.0
+      }
+    ],
+    "patient_resp": 50.0,
+    "doc_id": "EOB-054"
+  },
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 100,
+    "allowed": 80,
+    "insurer_paid": 60,
+    "adjustments": [],
+    "patient_resp": 40,
+    "doc_id": "EOB-057"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 1,
+    "cell_id": "manual:TOTAL",
+    "cpt": "",
+    "modifier": "",
+    "billed": 100.0,
+    "allowed": 80.0,
+    "insurer_paid": 60.0,
+    "adjustments": [],
+    "patient_resp": 40.0,
+    "doc_id": "EOB-057"
+  },
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 110,
+    "allowed": 85,
+    "insurer_paid": 63,
+    "adjustments": [],
+    "patient_resp": 42,
+    "doc_id": "EOB-058"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 1,
+    "cell_id": "manual:TOTAL",
+    "cpt": "",
+    "modifier": "",
+    "billed": 110.0,
+    "allowed": 85.0,
+    "insurer_paid": 63.0,
+    "adjustments": [],
+    "patient_resp": 42.0,
+    "doc_id": "EOB-058"
+  },
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 120,
+    "allowed": 90,
+    "insurer_paid": 66,
+    "adjustments": [],
+    "patient_resp": 44,
+    "doc_id": "EOB-059"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 1,
+    "cell_id": "manual:TOTAL",
+    "cpt": "",
+    "modifier": "",
+    "billed": 120.0,
+    "allowed": 90.0,
+    "insurer_paid": 66.0,
+    "adjustments": [],
+    "patient_resp": 44.0,
+    "doc_id": "EOB-059"
+  },
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 200.0,
+    "allowed": 150.0,
+    "insurer_paid": 100.0,
+    "adjustments": [
+      {
+        "type": "contractual",
+        "amount": 50.0
+      }
+    ],
+    "patient_resp": 50.0,
+    "doc_id": "EOB-060"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 1,
+    "cell_id": "manual:TOTAL",
+    "cpt": "",
+    "modifier": "",
+    "billed": 200.0,
+    "allowed": 150.0,
+    "insurer_paid": 100.0,
+    "adjustments": [
+      {
+        "type": "manual",
+        "amount": 50.0
+      }
+    ],
+    "patient_resp": 50.0,
+    "doc_id": "EOB-060"
+  },
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 100,
+    "allowed": 80,
+    "insurer_paid": 60,
+    "adjustments": [],
+    "patient_resp": 40,
+    "doc_id": "EOB-063"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 1,
+    "cell_id": "manual:TOTAL",
+    "cpt": "",
+    "modifier": "",
+    "billed": 100.0,
+    "allowed": 80.0,
+    "insurer_paid": 60.0,
+    "adjustments": [],
+    "patient_resp": 40.0,
+    "doc_id": "EOB-063"
+  },
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 110,
+    "allowed": 85,
+    "insurer_paid": 63,
+    "adjustments": [],
+    "patient_resp": 42,
+    "doc_id": "EOB-064"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 1,
+    "cell_id": "manual:TOTAL",
+    "cpt": "",
+    "modifier": "",
+    "billed": 110.0,
+    "allowed": 85.0,
+    "insurer_paid": 63.0,
+    "adjustments": [],
+    "patient_resp": 42.0,
+    "doc_id": "EOB-064"
+  },
+  {
+    "line_id": "L1",
+    "page": 1,
+    "cell_id": "manual:R1C1",
+    "cpt": "99213",
+    "billed": 120,
+    "allowed": 90,
+    "insurer_paid": 66,
+    "adjustments": [],
+    "patient_resp": 44,
+    "doc_id": "EOB-065"
+  },
+  {
+    "line_id": "TOTAL",
+    "page": 1,
+    "cell_id": "manual:TOTAL",
+    "cpt": "",
+    "modifier": "",
+    "billed": 120.0,
+    "allowed": 90.0,
+    "insurer_paid": 66.0,
+    "adjustments": [],
+    "patient_resp": 44.0,
+    "doc_id": "EOB-065"
+  }
+]

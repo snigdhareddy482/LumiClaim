@@ -1,0 +1,342 @@
+[
+  {
+    "line_id": "R1",
+    "billed": 100.0,
+    "allowed": 80.0,
+    "insurer_paid": 60.0,
+    "patient_resp": 40.0,
+    "doc_id": "EOB-TEST",
+    "page": 1,
+    "cell_id": "manual:R1C1"
+  },
+  {
+    "line_id": "R1",
+    "billed": 100.0,
+    "allowed": 80.0,
+    "insurer_paid": 60.0,
+    "patient_resp": 40.0,
+    "doc_id": "EOB-TEST",
+    "page": 1,
+    "cell_id": "manual:R1C1"
+  },
+  {
+    "line_id": "R1",
+    "billed": 100,
+    "allowed": 80,
+    "insurer_paid": 60,
+    "patient_resp": 40,
+    "doc_id": "EOB-TEST",
+    "page": 1,
+    "cell_id": "manual:R1C1"
+  },
+  {
+    "line_id": "R1",
+    "billed": 100.0,
+    "allowed": 80.0,
+    "insurer_paid": 60.0,
+    "patient_resp": 40.0,
+    "doc_id": "EOB-TEST",
+    "page": 1,
+    "cell_id": "manual:R1C1"
+  },
+  {
+    "line_id": "R1",
+    "billed": 100.0,
+    "allowed": 80.0,
+    "insurer_paid": 60.0,
+    "patient_resp": 40.0,
+    "doc_id": "EOB-TEST",
+    "page": 1,
+    "cell_id": "manual:R1C1"
+  },
+  {
+    "line_id": "R1",
+    "billed": 100,
+    "allowed": 80,
+    "insurer_paid": 60,
+    "patient_resp": 40,
+    "doc_id": "EOB-TEST",
+    "page": 1,
+    "cell_id": "manual:R1C1"
+  },
+  {
+    "line_id": "R1",
+    "billed": 100,
+    "allowed": 80,
+    "insurer_paid": 60,
+    "patient_resp": 40,
+    "doc_id": "EOB-TEST",
+    "page": 1,
+    "cell_id": "manual:R1C1"
+  },
+  {
+    "line_id": "R1",
+    "billed": 100.0,
+    "allowed": 80.0,
+    "insurer_paid": 60.0,
+    "patient_resp": 40.0,
+    "doc_id": "EOB-TEST",
+    "page": 1,
+    "cell_id": "manual:R1C1"
+  },
+  {
+    "line_id": "R1",
+    "billed": 100.0,
+    "allowed": 80.0,
+    "insurer_paid": 60.0,
+    "patient_resp": 40.0,
+    "doc_id": "EOB-TEST",
+    "page": 1,
+    "cell_id": "manual:R1C1"
+  },
+  {
+    "line_id": "R1",
+    "billed": 100,
+    "allowed": 80,
+    "insurer_paid": 60,
+    "patient_resp": 40,
+    "doc_id": "EOB-TEST",
+    "page": 1,
+    "cell_id": "manual:R1C1"
+  },
+  {
+    "line_id": "R1",
+    "billed": 100.0,
+    "allowed": 80.0,
+    "insurer_paid": 60.0,
+    "patient_resp": 40.0,
+    "doc_id": "EOB-TEST",
+    "page": 1,
+    "cell_id": "manual:R1C1"
+  },
+  {
+    "line_id": "R1",
+    "billed": 100.0,
+    "allowed": 80.0,
+    "insurer_paid": 60.0,
+    "patient_resp": 40.0,
+    "doc_id": "EOB-TEST",
+    "page": 1,
+    "cell_id": "manual:R1C1"
+  },
+  {
+    "line_id": "R1",
+    "billed": 100,
+    "allowed": 80,
+    "insurer_paid": 60,
+    "patient_resp": 40,
+    "doc_id": "EOB-TEST",
+    "page": 1,
+    "cell_id": "manual:R1C1"
+  },
+  {
+    "line_id": "R1",
+    "billed": 100,
+    "allowed": 80,
+    "insurer_paid": 60,
+    "patient_resp": 40,
+    "doc_id": "EOB-TEST",
+    "page": 1,
+    "cell_id": "manual:R1C1"
+  },
+  {
+    "line_id": "R1",
+    "billed": 100,
+    "allowed": 80,
+    "insurer_paid": 60,
+    "patient_resp": 40,
+    "doc_id": "EOB-TEST",
+    "page": 1,
+    "cell_id": "manual:R1C1"
+  },
+  {
+    "line_id": "R1",
+    "billed": 100,
+    "allowed": 80,
+    "insurer_paid": 60,
+    "patient_resp": 40,
+    "doc_id": "EOB-TEST",
+    "page": 1,
+    "cell_id": "manual:R1C1"
+  },
+  {
+    "line_id": "R1",
+    "billed": 100,
+    "allowed": 80,
+    "insurer_paid": 60,
+    "patient_resp": 40,
+    "doc_id": "EOB-TEST",
+    "page": 1,
+    "cell_id": "manual:R1C1"
+  },
+  {
+    "line_id": "R1",
+    "billed": 100.0,
+    "allowed": 80.0,
+    "insurer_paid": 60.0,
+    "patient_resp": 40.0,
+    "doc_id": "EOB-TEST",
+    "page": 1,
+    "cell_id": "manual:R1C1"
+  },
+  {
+    "line_id": "R1",
+    "billed": 100.0,
+    "allowed": 80.0,
+    "insurer_paid": 60.0,
+    "patient_resp": 40.0,
+    "doc_id": "EOB-TEST",
+    "page": 1,
+    "cell_id": "manual:R1C1"
+  },
+  {
+    "line_id": "R1",
+    "billed": 100,
+    "allowed": 80,
+    "insurer_paid": 60,
+    "patient_resp": 40,
+    "doc_id": "EOB-TEST",
+    "page": 1,
+    "cell_id": "manual:R1C1"
+  },
+  {
+    "line_id": "R1",
+    "billed": 100,
+    "allowed": 80,
+    "insurer_paid": 60,
+    "patient_resp": 40,
+    "doc_id": "EOB-TEST",
+    "page": 1,
+    "cell_id": "manual:R1C1"
+  },
+  {
+    "line_id": "R1",
+    "billed": 100.0,
+    "allowed": 80.0,
+    "insurer_paid": 60.0,
+    "patient_resp": 40.0,
+    "doc_id": "EOB-TEST",
+    "page": 1,
+    "cell_id": "manual:R1C1"
+  },
+  {
+    "line_id": "R1",
+    "billed": 100.0,
+    "allowed": 80.0,
+    "insurer_paid": 60.0,
+    "patient_resp": 40.0,
+    "doc_id": "EOB-TEST",
+    "page": 1,
+    "cell_id": "manual:R1C1"
+  },
+  {
+    "line_id": "R1",
+    "billed": 100,
+    "allowed": 80,
+    "insurer_paid": 60,
+    "patient_resp": 40,
+    "doc_id": "EOB-TEST",
+    "page": 1,
+    "cell_id": "manual:R1C1"
+  },
+  {
+    "line_id": "R1",
+    "billed": 100.0,
+    "allowed": 80.0,
+    "insurer_paid": 60.0,
+    "patient_resp": 40.0,
+    "doc_id": "EOB-TEST",
+    "page": 1,
+    "cell_id": "manual:R1C1"
+  },
+  {
+    "line_id": "R1",
+    "billed": 100.0,
+    "allowed": 80.0,
+    "insurer_paid": 60.0,
+    "patient_resp": 40.0,
+    "doc_id": "EOB-TEST",
+    "page": 1,
+    "cell_id": "manual:R1C1"
+  },
+  {
+    "line_id": "R1",
+    "billed": 100,
+    "allowed": 80,
+    "insurer_paid": 60,
+    "patient_resp": 40,
+    "doc_id": "EOB-TEST",
+    "page": 1,
+    "cell_id": "manual:R1C1"
+  },
+  {
+    "line_id": "R1",
+    "billed": 100.0,
+    "allowed": 80.0,
+    "insurer_paid": 60.0,
+    "patient_resp": 40.0,
+    "doc_id": "EOB-TEST",
+    "page": 1,
+    "cell_id": "manual:R1C1"
+  },
+  {
+    "line_id": "R1",
+    "billed": 100.0,
+    "allowed": 80.0,
+    "insurer_paid": 60.0,
+    "patient_resp": 40.0,
+    "doc_id": "EOB-TEST",
+    "page": 1,
+    "cell_id": "manual:R1C1"
+  },
+  {
+    "line_id": "R1",
+    "billed": 100.0,
+    "allowed": 80.0,
+    "insurer_paid": 60.0,
+    "patient_resp": 40.0,
+    "doc_id": "EOB-TEST",
+    "page": 1,
+    "cell_id": "manual:R1C1"
+  },
+  {
+    "line_id": "R1",
+    "billed": 100.0,
+    "allowed": 80.0,
+    "insurer_paid": 60.0,
+    "patient_resp": 40.0,
+    "doc_id": "EOB-TEST",
+    "page": 1,
+    "cell_id": "manual:R1C1"
+  },
+  {
+    "line_id": "R1",
+    "billed": 100.0,
+    "allowed": 80.0,
+    "insurer_paid": 60.0,
+    "patient_resp": 40.0,
+    "doc_id": "EOB-TEST",
+    "page": 1,
+    "cell_id": "manual:R1C1"
+  },
+  {
+    "line_id": "R1",
+    "billed": 100.0,
+    "allowed": 80.0,
+    "insurer_paid": 60.0,
+    "patient_resp": 40.0,
+    "doc_id": "EOB-TEST",
+    "page": 1,
+    "cell_id": "manual:R1C1"
+  },
+  {
+    "line_id": "R1",
+    "billed": 100.0,
+    "allowed": 80.0,
+    "insurer_paid": 60.0,
+    "patient_resp": 40.0,
+    "doc_id": "EOB-TEST",
+    "page": 1,
+    "cell_id": "manual:R1C1"
+  }
+]

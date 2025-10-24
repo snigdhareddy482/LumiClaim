@@ -1,0 +1,53 @@
+{
+	"claims_raw": {
+		"settings": {
+			"number_of_shards": 1,
+			"number_of_replicas": 0
+		},
+		"mappings": {
+			"dynamic": "strict",
+			"properties": {
+				"session_id": {"type": "keyword"},
+				"doc_id": {"type": "keyword"},
+				"page": {"type": "integer"},
+				"cell": {"type": "keyword"},
+				"text": {"type": "text", "analyzer": "english"},
+				"embedding": {
+					"type": "dense_vector",
+					"dims": 384,
+					"index": true,
+					"similarity": "cosine"
+				}
+			}
+		}
+	},
+	"claims_struct": {
+		"settings": {
+			"number_of_shards": 1,
+			"number_of_replicas": 0
+		},
+		"mappings": {
+			"dynamic": "strict",
+			"properties": {
+				"session_id": {"type": "keyword"},
+				"doc_id": {"type": "keyword"},
+				"line_id": {"type": "keyword"},
+				"page": {"type": "integer"},
+				"cell": {"type": "keyword"},
+				"text": {"type": "text", "analyzer": "english"},
+				"cpt": {"type": "keyword"},
+				"modifier": {"type": "keyword"},
+				"billed": {"type": "double"},
+				"allowed": {"type": "double"},
+				"insurer_paid": {"type": "double"},
+				"patient_resp": {"type": "double"},
+				"embedding": {
+					"type": "dense_vector",
+					"dims": 384,
+					"index": true,
+					"similarity": "cosine"
+				}
+			}
+		}
+	}
+}

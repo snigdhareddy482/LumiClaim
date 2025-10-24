@@ -1,0 +1,16 @@
+[
+  {
+    "line_id": "L-1-0-1",
+    "page": 1,
+    "cell_id": "tbl0:R1C0",
+    "cpt": "99213",
+    "modifier": null,
+    "billed": 100.0,
+    "allowed": 80.0,
+    "insurer_paid": 50.0,
+    "adjustments": [],
+    "patient_resp": 30.0,
+    "description": null,
+    "doc_id": "EOB-062"
+  }
+]

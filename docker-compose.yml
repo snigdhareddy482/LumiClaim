@@ -1,0 +1,17 @@
+services:
+  api:
+    build: ./backend
+    ports:
+      - "${API_PORT:-8080}:8080"
+    env_file:
+      - .env
+  ui:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "${UI_PORT:-8501}:8501"
+    env_file:
+      - .env
+    depends_on:
+      - api

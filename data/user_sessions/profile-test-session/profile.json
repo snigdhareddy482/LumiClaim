@@ -1,0 +1,15 @@
+{
+  "session_id": "profile-test-session",
+  "plan_year_start": null,
+  "plan_name": null,
+  "deductible_individual": 2000.0,
+  "deductible_remaining": 500.0,
+  "coinsurance": 0.2,
+  "oop_max": 5000.0,
+  "oop_remaining": 3000.0,
+  "copays": {
+    "primary": null,
+    "specialist": null,
+    "er": null
+  }
+}
