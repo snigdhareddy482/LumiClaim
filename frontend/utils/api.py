@@ -71,7 +71,7 @@ def get_session_claims(sid: str) -> Dict[str, Any]:
     for doc_id in docs:
         doc_path = session_dir(sid) / "extracted" / f"{doc_id}.json"
         if doc_path.exists():
-            doc = json.loads(doc_path.read_text())
+            doc = json.loads(doc_path.read_text(encoding="utf-8"))
             if not isinstance(doc, dict):
                 continue
             doc_objs.append({"doc_id": doc_id})
