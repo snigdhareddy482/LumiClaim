@@ -5,8 +5,7 @@ requests>=2.32.0
 
 # Backend imports need these
 fastapi>=0.109.0
-uvicorn>=0.27.0
-python-multipart>=0.0.9
+# Removed uvicorn/python-multipart to fix Py3.13 build
 
 # Document Processing
 python-docx>=1.1.0

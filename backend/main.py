@@ -68,7 +68,7 @@ class AIExplainRequest(BaseModel):
     persona: str = "patient"
     grade_level: str = "8th Grade"
 
-DATA_ROOT = Path("data")
+DATA_ROOT = Path(__file__).resolve().parent.parent / "data"
 
 
 def _with_audit_hash(payload: dict[str, Any]) -> dict[str, Any]:

@@ -12,7 +12,7 @@ from typing import Any, Iterable
 
 from fastapi import HTTPException
 
-DATA_ROOT = Path("data")
+DATA_ROOT = Path(__file__).resolve().parent.parent / "data"
 SESSION_ROOT = DATA_ROOT / "user_sessions"
 _SAFE_ID_PATTERN = re.compile(r"^[A-Za-z0-9._-]+$")
 _BUILTIN_DOC_IDS = {"EOB-001", "EOB-002"}

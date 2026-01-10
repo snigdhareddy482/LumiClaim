@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Dict, Any, Optional
 
 # Path to the auth database
-AUTH_DB_PATH = Path("data/auth.json")
+AUTH_DB_PATH = Path(__file__).resolve().parent.parent / "data/auth.json"
 
 def _load_db() -> Dict[str, Any]:
     if not AUTH_DB_PATH.exists():
