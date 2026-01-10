@@ -1,4 +1,11 @@
 extends: default
 
+ignore: |
+  .venv*/
+  **/venv*/
+  data/
+
 rules:
   truthy: disable
+  line-length: disable
+  document-start: disable
