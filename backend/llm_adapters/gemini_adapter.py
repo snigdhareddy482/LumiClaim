@@ -93,4 +93,43 @@ def extract_text_from_image(image_data: Any) -> str:
         print(f"[GEMINI OCR] Failed: {e}")
         return ""
 
-__all__ = ["NotConfigured", "verbalize", "extract_text_from_image"]
+def extract_structured_eob(image_data: Any) -> list[Dict[str, Any]]:
+    """Extract EOB data as structured JSON list."""
+    if genai is None:
+        return []
+
+    api_key = os.getenv("GEMINI_API_KEY")
+    if not api_key:
+        return []
+
+    try:
+        genai.configure(api_key=api_key)
+        model = genai.GenerativeModel("gemini-1.5-flash")
+        
+        prompt = """Extract all medical claim lines from this EOB image into a JSON list. 
+        Each item in the list should be an object with these keys (if present):
+        - date (string, MM/DD/YYYY)
+        - cpt (string, procedure code)
+        - description (string)
+        - billed (float)
+        - allowed (float)
+        - insurer_paid (float)
+        - patient_resp (float)
+        - adjustments (list of strings)
+        
+        Return ONLY valid JSON. If no claims found, return empty list [].
+        """
+        
+        response = model.generate_content([prompt, image_data])
+        text = response.text if response else "[]"
+        
+        # Strip markdown code blocks if present
+        text = text.replace("```json", "").replace("```", "").strip()
+        
+        return json.loads(text)
+    except Exception as e:
+        print(f"[GEMINI JSON] Failed: {e}")
+        return []
+
+__all__ = ["NotConfigured", "verbalize", "extract_text_from_image", "extract_structured_eob"]
+
