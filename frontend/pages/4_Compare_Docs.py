@@ -21,8 +21,8 @@ with ui.card_container():
     c1, c2, c3 = st.columns([1, 1, 0.5], gap="medium")
     
     # Fetch available docs
-    docs_resp = api.fetch("GET", "/session/claims", params={"session_id": api.get_session_id()})
-    doc_options = docs_resp.get("claims", []) if docs_resp else []
+    docs_resp = api.get("/documents/")
+    doc_options = docs_resp if docs_resp else []
     
     with c1:
         doc_a = st.selectbox("Document A (Baseline)", doc_options, index=0 if doc_options else None)
