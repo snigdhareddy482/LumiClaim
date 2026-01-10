@@ -1,5 +1,18 @@
+# Python
 __pycache__/
-*.pyc
-.venv/
+*.py[cod]
+*$py.class
+*.log
+*.txt
+eval_results.json
+
+# Environment
 .env
-.DS_Store
+.venv
+venv/
+ENV/
+
+# Data
+data/
+!data/.gitkeep
+brain/re

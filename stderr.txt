@@ -1,4 +1,0 @@
-  File "C:\Users\snigd\OneDrive - UNT System\LumiClaim\backend\main.py", line 4
-    from __future__ import annotations
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-SyntaxError: from __future__ imports must occur at the beginning of the file

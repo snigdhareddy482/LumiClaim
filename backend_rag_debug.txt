@@ -1,3 +1,0 @@
-DEBUG: RAG Question='hi' DocID='None' UseElastic=True
-DEBUG: Using Elastic Adapter
-INFO:     127.0.0.1:55031 - "POST /chat HTTP/1.1" 500 Internal Server Error
