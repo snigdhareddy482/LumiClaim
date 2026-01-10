@@ -19,8 +19,8 @@ if __name__ == "__main__":
     ui.inject_css()
     
     # Auto-redirect if already logged in (optional, but good UX)
-    # if api.get_session_id():
-    #     st.switch_page("pages/1_Upload_&_Dashboard.py")
+    if api.get_session_id():
+        st.switch_page("pages/1_Upload_&_Dashboard.py")
 
     st.markdown("<br><br>", unsafe_allow_html=True) # Spacer
     

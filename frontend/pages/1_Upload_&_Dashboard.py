@@ -18,6 +18,10 @@ st.set_page_config(
 ui.inject_css()
 api.ensure_session()
 
+# Auth Guard
+if not api.get_session_id():
+    st.switch_page("app.py")
+
 # --- Sidebar ---
 ui.render_sidebar()
 current_session = api.get_session_id()
