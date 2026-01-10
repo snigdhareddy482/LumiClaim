@@ -484,3 +484,23 @@ def list_appeal_history(session_id: str) -> list[dict]:
         return json.loads(appeals_path.read_text(encoding="utf-8"))
     except:
         return []
+
+
+def load_profile(session_id: str) -> dict[str, Any] | None:
+    """Load the profile for a given session ID."""
+    profile_path = session_dir(session_id) / "profile.json"
+    if not profile_path.exists():
+        return None
+    try:
+        data = json.loads(profile_path.read_text(encoding="utf-8"))
+        return data if isinstance(data, dict) else None
+    except Exception:
+        return None
+
+
+def save_profile(session_id: str, data: dict[str, Any]) -> None:
+    """Save the profile data for a given session ID."""
+    profile_path = session_dir(session_id) / "profile.json"
+    # Ensure parent directory exists
+    profile_path.parent.mkdir(parents=True, exist_ok=True)
+    _write_json(profile_path, data)
