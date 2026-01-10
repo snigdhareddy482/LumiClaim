@@ -152,6 +152,8 @@ def get(endpoint: str, **kwargs) -> Optional[Any]:
         return list_documents(sid)
     elif "/reconcile/" in endpoint:
         return {"anomalies": []}  # Placeholder
+    elif "/appeal/history" in endpoint:
+        return [] # Placeholder history
     else:
         # Unknown endpoint - try to return empty
         return {}
@@ -180,6 +182,12 @@ def post(endpoint: str, **kwargs) -> Optional[Any]:
         return _explain_ai(json_data)
     elif "/appeal/generate_ai" in endpoint:
         return _generate_appeal_ai(json_data)
+    elif "/appeal/track" in endpoint:
+        # Placeholder for tracking
+        return {"success": True}
+    elif endpoint == "/appeal":
+        # Placeholder for template
+        return {"body": "Dear [Insurer], I am writing to appeal...", "subject": "Appeal Letter"}
     elif "/session/manual_entry" in endpoint:
         return _manual_entry(json_data)
     elif "/simulate" in endpoint:
@@ -238,7 +246,7 @@ def _generate_appeal_ai(data: Dict[str, Any]) -> Dict[str, Any]:
     
     try:
         letter = generate_appeal_letter(doc, profile, user_context)
-        return {"letter": letter}
+        return {"body": letter, "subject": f"Appeal for Claim {doc_id}", "doc_id": doc_id}
     except Exception as e:
         return {"letter": f"AI unavailable: {e}"}
 

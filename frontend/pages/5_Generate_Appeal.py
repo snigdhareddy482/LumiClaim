@@ -47,7 +47,7 @@ with ui.card_container():
                     "session_id": api.get_session_id(),
                     "user_context": user_context
                 }
-                res = api.fetch("POST", "/appeal/generate_ai", json=payload, timeout=60)
+                res = api.post("/appeal/generate_ai", json=payload)
                 if res:
                     st.session_state["appeal_result"] = {
                         "body": res.get("body"), 
@@ -160,14 +160,14 @@ with ui.card_container():
             "status": new_status,
             "notes": notes
         }
-        res = api.fetch("POST", "/appeal/track", json=payload)
+        res = api.post("/appeal/track", json=payload)
         if res:
             st.success(f"Status updated to '{new_status}'")
             st.rerun()
 
 # --- History ---
 st.markdown("#### Appeal History")
-history_data = api.fetch("GET", "/appeal/history", params={"session_id": api.get_session_id()})
+history_data = api.get("/appeal/history", params={"session_id": api.get_session_id()})
 if history_data:
     st.dataframe(
         history_data, 
