@@ -291,8 +291,8 @@ def _extract_rows_from_text(text: str, page: int = 1) -> List[SchemaRow]:
     
     # Matches MM/DD/YY or MM/DD/YYYY
     date_pattern = re.compile(r'(\d{1,2}/\d{1,2}/\d{2,4})')
-    # Matches money $40.00 or 40.00
-    money_pattern = re.compile(r'(\$?\d{1,3}(?:,\d{3})*\.\d{2})')
+    # Matches money $40.00 or 40.00 OR $40 (integer)
+    money_pattern = re.compile(r'(\$?[\d,]+(?:\.\d{2})?)')
     
     for idx, line in enumerate(lines):
         if not line.strip():
