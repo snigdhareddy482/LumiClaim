@@ -48,7 +48,7 @@ if __name__ == "__main__":
             
             if st.button("Continue", type="primary", use_container_width=True):
                 if username.strip():
-                    clean_id = username.strip()
+                    clean_id = username.strip().lower()
                     # Check status
                     try:
                         res = api.get(f"/auth/status/{clean_id}")

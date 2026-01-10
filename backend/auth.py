@@ -32,18 +32,19 @@ def _hash_password(password: str, salt: str) -> str:
 
 def user_exists(username: str) -> bool:
     db = _load_db()
-    return username in db
+    return username.lower().strip() in db
 
 def has_password(username: str) -> bool:
     """Check if a registered user has a password set."""
     db = _load_db()
-    user = db.get(username)
+    user = db.get(username.lower().strip())
     if not user:
         return False
     return bool(user.get("password_hash"))
 
 def register_user(username: str, password: str) -> bool:
     """Register a new user or set password for existing user without one."""
+    username = username.lower().strip()
     db = _load_db()
     
     # Generate Salt
@@ -63,7 +64,7 @@ def register_user(username: str, password: str) -> bool:
 
 def verify_credentials(username: str, password: str) -> bool:
     db = _load_db()
-    user = db.get(username)
+    user = db.get(username.lower().strip())
     if not user:
         return False
         
@@ -79,6 +80,7 @@ def verify_credentials(username: str, password: str) -> bool:
 def get_user_status(username: str) -> str:
     """Return status: 'unknown', 'migrate_required', 'active'."""
     db = _load_db()
+    username = username.lower().strip()
     
     if username not in db:
         # Check if session folder exists (Existing user but not in auth DB yet)
