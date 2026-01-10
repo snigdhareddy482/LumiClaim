@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 *.log
 *.txt
+!requirements.txt
 eval_results.json
 
 # Environment
