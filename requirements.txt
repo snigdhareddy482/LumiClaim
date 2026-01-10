@@ -1,25 +1,22 @@
-pydantic==2.9.2
+# Streamlit Cloud - Minimal Dependencies
 streamlit==1.39.0
+pydantic==2.9.2
 requests==2.32.3
 
-# Exporter optional dependencies (pinned to match backend)
+# Document Processing
 python-docx==1.1.0
-matplotlib==3.8.0
 fpdf2==2.7.9
 Pillow==10.1.0
+PyPDF2==3.0.1
 
-# AI & RAG
-google-generativeai==0.8.3
+# AI (Gemini)
+google-generativeai==0.3.2
 python-dotenv==1.0.1
-rank-bm25==0.2.2
-ragas==0.2.1
-datasets==3.2.0
-langchain-google-genai==2.0.7
-langchain-community==0.3.16
 
-# Backend (FastAPI)
-fastapi==0.115.6
-uvicorn==0.34.0
-python-multipart==0.0.20
-pypdf2==3.0.1
-aiofiles==24.1.0
+# Search
+rank-bm25==0.2.2
+
+# Charts
+matplotlib==3.8.0
+altair==5.2.0
+pandas==2.1.4
