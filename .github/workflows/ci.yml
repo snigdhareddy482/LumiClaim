@@ -46,7 +46,7 @@ jobs:
           PYTHONPATH: ${{ github.workspace }}
           GEMINI_API_KEY: "dummy_key_for_ci"
         run: |
-          python -c "import sys; sys.path.append('.'); import backend; print('backend import OK')"
+          python -c "import backend; print('backend OK')"
 
       - name: Run tests
         env:
