@@ -31,6 +31,22 @@ def ensure_session():
         st.session_state.session_created = True
         return
 
+def _upload_sbc(files: Dict, sid: str) -> Dict[str, Any]:
+    """Handle SBC Upload - Mock/Heuristic implementation."""
+    # In a real app, we would use Gemini to parse the PDF.
+    # For this demo, we verify a file was sent and return a success mock.
+    if not files or "file" not in files:
+        return {}
+    
+    # Return mock extracted data to demonstrate the UI flow
+    return {
+        "profile": {}, 
+        "extracted": {
+            "deductible_individual": 2500.00,
+            "oop_individual": 7500.00
+        }
+    }
+
 # --- Auth Functions (Direct Calls) ---
 def get_auth_status(username: str) -> Dict[str, Any]:
     """Check user status - replaces GET /auth/status/{username}"""
@@ -178,6 +194,8 @@ def post(endpoint: str, **kwargs) -> Optional[Any]:
         return {"error": "No file provided"}
     elif endpoint == "/profile":
         return _set_profile(json_data)
+    elif endpoint == "/profile/upload_sbc":
+        return _upload_sbc(files, sid)
     elif "/explain/ai" in endpoint:
         return _explain_ai(json_data)
     elif "/appeal/generate_ai" in endpoint:

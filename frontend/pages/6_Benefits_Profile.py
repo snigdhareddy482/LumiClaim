@@ -99,7 +99,7 @@ with ui.card_container():
                             st.success(f"Success! {msg}")
                             st.rerun()
                         else:
-                            st.error(f"Extraction failed: {resp.text}")
+                            st.error(f"Extraction failed. Please try again.")
                     except Exception as e:
                         st.error(f"Error: {e}")
     
