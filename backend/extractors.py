@@ -245,15 +245,46 @@ def parse_image(path: str) -> Tuple[List[SchemaRow], List[str], List[str]]:
 
     text = ""
     
-    # Try Gemini OCR first as it is stronger than Tesseract for complex docs
+    # Try Gemini Structured JSON first (most robust)
+    try:
+        from backend.llm_adapters.gemini_adapter import extract_structured_eob
+        structured_rows = extract_structured_eob(img)
+        if structured_rows:
+            # Map JSON list to SchemaRow
+            for idx, item in enumerate(structured_rows):
+                row: SchemaRow = {
+                    "line_id": f"L-gemini-{idx}",
+                    "page": 1,
+                    "cell_id": f"gemini:R{idx}",
+                    "cpt": item.get("cpt"),
+                    "modifier": None,
+                    "billed": item.get("billed"),
+                    "allowed": item.get("allowed"),
+                    "insurer_paid": item.get("insurer_paid"),
+                    "adjustments": item.get("adjustments", []),
+                    "patient_resp": item.get("patient_resp"),
+                    "description": item.get("description"),
+                }
+                rows.append(row)
+            
+            notes.append(f"gemini_structured: found {len(rows)} rows")
+            raw_pages.append("Gemini Structured Extraction Successful")
+            return rows, raw_pages, notes
+            
+    except Exception as e:
+        notes.append(f"gemini_structural_failed: {e}")
+
+    text = ""
+    
+    # Fallback to Text extraction (Gemini -> Text)
     try:
         text = extract_text_from_image(img)
         if text:
-            notes.append("gemini_ocr_success")
+            notes.append("gemini_ocr_text_success")
     except Exception as e:
         notes.append(f"gemini_ocr_failed: {e}")
     
-    # Fallback to Tesseract if Gemini fails or is not configured
+    # Fallback to Tesseract if Gemini text fails
     if not text and pytesseract is not None:
         try:
             text = pytesseract.image_to_string(img)
@@ -264,7 +295,7 @@ def parse_image(path: str) -> Tuple[List[SchemaRow], List[str], List[str]]:
             
     raw_pages.append(text or "")
     
-    # heuristic: try to extract rows from the OCR text
+    # Heuristic regex on text
     if text:
         extracted_rows = _extract_rows_from_text(text, page=1)
         if extracted_rows:
