@@ -43,18 +43,14 @@ jobs:
 
       - name: Import smoke test
         env:
-          PYTHONPATH: .
+          PYTHONPATH: ${{ github.workspace }}
           GEMINI_API_KEY: "dummy_key_for_ci"
         run: |
-          python - <<'PY'
-          import importlib
-          importlib.import_module('backend')
-          print('backend import OK')
-          PY
+          python -c "import sys; sys.path.append('.'); import backend; print('backend import OK')"
 
       - name: Run tests
         env:
-          PYTHONPATH: .
+          PYTHONPATH: ${{ github.workspace }}
           GEMINI_API_KEY: "dummy_key_for_ci"
         run: pytest -q
 
