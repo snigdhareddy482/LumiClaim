@@ -6,6 +6,10 @@ import json
 import os
 from typing import Any, Dict
 
+# Load .env for local development
+from dotenv import load_dotenv
+load_dotenv()
+
 try:  # Optional dependency to keep local development light.
 	import google.generativeai as genai  # type: ignore[import-not-found]
 except ImportError:  # pragma: no cover - adapter requires runtime dependency
