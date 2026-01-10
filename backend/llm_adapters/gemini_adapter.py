@@ -68,13 +68,25 @@ def _extract_text(response: Any) -> str:
 
 
 def extract_text_from_image(image_data: Any) -> str:
-    """Use Gemini Vision to extract text from an image (PIL Image or bytes).
-    
-    TODO: Gemini Vision OCR is currently disabled due to reliability issues
-    (API hangs, timeouts). Re-enable once stability is confirmed.
-    """
-    # TEMPORARILY DISABLED - Gemini Vision causes server hangs
-    print("[GEMINI OCR] DISABLED - returning empty to prevent server hang")
-    return ""
+    """Use Gemini Vision to extract text from an image (PIL Image)."""
+    if genai is None:
+        return ""
+        
+    api_key = os.getenv("GEMINI_API_KEY")
+    if not api_key:
+        return ""
+
+    try:
+        genai.configure(api_key=api_key)
+        # Use Flash for speed
+        model = genai.GenerativeModel("gemini-1.5-flash")
+        
+        # Prompt for extraction
+        response = model.generate_content(["Extract all text from this EOB document page verbatim.", image_data])
+        
+        return response.text if response else ""
+    except Exception as e:
+        print(f"[GEMINI OCR] Failed: {e}")
+        return ""
 
 __all__ = ["NotConfigured", "verbalize", "extract_text_from_image"]
