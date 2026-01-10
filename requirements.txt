@@ -1,26 +1,14 @@
-# Streamlit Cloud - Python 3.13 Compatible
-streamlit>=1.39.0
-pydantic>=2.9.0
-requests>=2.32.0
-
-# Backend imports need these
-fastapi>=0.109.0
-# Removed uvicorn/python-multipart to fix Py3.13 build
-
-# Document Processing
-python-docx>=1.1.0
-fpdf2>=2.7.0
-Pillow>=10.4.0
-PyPDF2>=3.0.0
-
-# AI (Gemini)
-google-generativeai>=0.3.0
-python-dotenv>=1.0.0
-
-# Search
-rank-bm25>=0.2.0
-
-# Charts
-matplotlib>=3.8.0
-altair>=5.2.0
-pandas>=2.1.0
+streamlit
+pydantic
+requests
+fastapi
+python-docx
+fpdf2
+Pillow
+PyPDF2
+google-generativeai
+python-dotenv
+rank-bm25
+matplotlib
+altair
+pandas

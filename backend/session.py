@@ -10,7 +10,12 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable
 
-from fastapi import HTTPException
+# from fastapi import HTTPException
+
+class HTTPException(Exception):
+    def __init__(self, status_code: int, detail: Any = None):
+        self.status_code = status_code
+        self.detail = detail
 
 DATA_ROOT = Path(__file__).resolve().parent.parent / "data"
 SESSION_ROOT = DATA_ROOT / "user_sessions"
