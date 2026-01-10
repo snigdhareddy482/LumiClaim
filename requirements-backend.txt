@@ -1,0 +1,13 @@
+# Minimal backend - no ML packages
+pydantic==2.9.2
+requests==2.32.3
+fastapi==0.109.2
+uvicorn[standard]==0.27.1
+python-multipart==0.0.9
+python-dotenv==1.0.1
+python-docx==1.1.0
+fpdf2==2.7.9
+Pillow==10.1.0
+PyPDF2==3.0.1
+rank-bm25==0.2.2
+google-generativeai==0.3.2
