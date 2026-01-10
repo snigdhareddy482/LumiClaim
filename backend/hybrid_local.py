@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import math
+import os
 import re
 from collections import defaultdict
 from dataclasses import dataclass
@@ -38,7 +39,13 @@ class IndexedSegment:
 class HybridLocalEngine:
 	"""Hybrid retriever backed by BM25 and optional embeddings."""
 
-	def __init__(self) -> None:
+	def __init__(self, session_id: str | None = None) -> None:
+		"""Initialize the search engine for a specific session.
+		
+		Args:
+			session_id: User session ID. If None, loads global samples (deprecated).
+		"""
+		self._session_id = session_id
 		self._segments: list[IndexedSegment] = []
 		self._bm25: BM25Okapi | None = None
 		self._st_model: Any | None = None
@@ -47,11 +54,46 @@ class HybridLocalEngine:
 		self._build_index()
 
 	def _build_index(self) -> None:
-		with open(Path(DATA_PATH), "r", encoding="utf-8") as handle:
-			doc_ids = list(json.load(handle).keys())
+		"""Build search index from session-specific documents."""
+		if self._session_id:
+			# Load from session-specific extracted directory
+			session_dir = Path(os.path.dirname(__file__)) / ".." / "data" / "user_sessions" / self._session_id / "extracted"
+			if not session_dir.exists():
+				# Session has no uploaded documents yet
+				return
+			
+			# Find all JSON files in the session's extracted directory
+			doc_files = list(session_dir.glob("*.json"))
+			doc_ids = [f.stem for f in doc_files if f.stem not in ["claims_raw", "claims_struct"]]
+		else:
+			# Fallback to global samples (deprecated)
+			with open(Path(DATA_PATH), "r", encoding="utf-8") as handle:
+				doc_ids = list(json.load(handle).keys())
+
+		# --- Index SBCs if present ---
+		if self._session_id:
+			s_dir = Path(os.path.dirname(__file__)) / ".." / "data" / "user_sessions" / self._session_id / "extracted"
+			# Glob all SBC text files
+			for sbc_file in s_dir.glob("SBC_*.txt"):
+				try:
+					content = sbc_file.read_text(encoding="utf-8")
+					clean_name = sbc_file.stem.replace("SBC_", "")
+					# Chunk by 1000 chars withOverlap
+					chunks = [content[i:i+1000] for i in range(0, len(content), 800)]
+					for i, chunk in enumerate(chunks):
+						seg = IndexedSegment(
+							doc_id=f"Policy-{clean_name}", # Distinct Doc ID
+							line_id=f"text-{i}",
+							page=1, cell="text", cpt=None, modifier=None,
+							text=chunk,
+							tokens=self._tokenize(chunk)
+						)
+						self._segments.append(seg)
+				except Exception:
+					pass
 
 		for doc_id in doc_ids:
-			rows = _load_struct(doc_id)
+			rows = _load_struct(doc_id, session_id=self._session_id)
 			for row in rows:
 				text = self._row_to_text(row)
 				tokens = self._tokenize(text)
@@ -125,7 +167,8 @@ class HybridLocalEngine:
 		parts.append(f"allowed {row.allowed:.2f}")
 		parts.append(f"insurer paid {row.insurer_paid:.2f}")
 		parts.append(f"patient responsibility {row.patient_resp if row.patient_resp is not None else 0.0:.2f}")
-		adjust_total = sum(adj.amount for adj in row.adjustments) if row.adjustments else 0.0
+		# Handle potential None in adjustment amounts
+		adjust_total = sum((adj.amount or 0.0) for adj in row.adjustments) if row.adjustments else 0.0
 		parts.append(f"adjustments {adjust_total:.2f}")
 		return ", ".join(parts)
 
@@ -229,16 +272,24 @@ class HybridLocalEngine:
 		return ordered, candidate_scores
 
 
-_ENGINE: HybridLocalEngine | None = None
+# Session-specific engine cache
+_ENGINE_CACHE: dict[str | None, HybridLocalEngine] = {}
 
 
-def _get_engine() -> HybridLocalEngine:
-	global _ENGINE
-	if _ENGINE is None:
-		_ENGINE = HybridLocalEngine()
-	return _ENGINE
+def _get_engine(session_id: str | None = None) -> HybridLocalEngine:
+	"""Get or create a search engine for the specified session."""
+	if session_id not in _ENGINE_CACHE:
+		_ENGINE_CACHE[session_id] = HybridLocalEngine(session_id=session_id)
+	return _ENGINE_CACHE[session_id]
 
 
-def search(query: str, doc_id: str | None = None, *, top_k: int = 5) -> list[dict[str, Any]]:
-	"""Return top-matching segments for the query using hybrid retrieval."""
-	return _get_engine().search(query, doc_id=doc_id, top_k=top_k)
+def search(query: str, doc_id: str | None = None, *, session_id: str | None = None, top_k: int = 5) -> list[dict[str, Any]]:
+	"""Return top-matching segments for the query using hybrid retrieval.
+	
+	Args:
+		query: Search query text
+		doc_id: Optional filter to specific document
+		session_id: User session ID (required for session-specific search)
+		top_k: Number of results to return
+	"""
+	return _get_engine(session_id=session_id).search(query, doc_id=doc_id, top_k=top_k)

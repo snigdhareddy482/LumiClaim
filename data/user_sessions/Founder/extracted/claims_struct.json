@@ -1,0 +1,44 @@
+[
+  {
+    "line_id": "L-2-ocr-8",
+    "page": 2,
+    "cell_id": "ocr:R8",
+    "cpt": null,
+    "modifier": null,
+    "billed": 1042.0,
+    "allowed": 416.8,
+    "insurer_paid": 0.0,
+    "adjustments": [],
+    "patient_resp": 607.1,
+    "description": "DOCTOR VISIT $1,042.00 $416.80 $625.20 $0.00 $18.10 $589.00 $0.00 $18.10 $0.00 $607.10",
+    "doc_id": "EOB-101"
+  },
+  {
+    "line_id": "L-2-ocr-11",
+    "page": 2,
+    "cell_id": "ocr:R11",
+    "cpt": null,
+    "modifier": null,
+    "billed": 413.0,
+    "allowed": 165.2,
+    "insurer_paid": 0.0,
+    "adjustments": [],
+    "patient_resp": 123.9,
+    "description": "DOCTOR VISIT $413.00 $165.20 $247.80 $0.00 $123.90 $0.00 $0.00 $123.90 $0.00 $123.90",
+    "doc_id": "EOB-101"
+  },
+  {
+    "line_id": "L-2-ocr-14",
+    "page": 2,
+    "cell_id": "ocr:R14",
+    "cpt": null,
+    "modifier": null,
+    "billed": 1455.0,
+    "allowed": 582.0,
+    "insurer_paid": 0.0,
+    "adjustments": [],
+    "patient_resp": 731.0,
+    "description": "Total amount $1,455.00 $582.00 $873.00 $0.00 $142.00 $589.00 $0.00 $142.00 $0.00 $731.00",
+    "doc_id": "EOB-101"
+  }
+]

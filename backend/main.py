@@ -10,13 +10,19 @@ from io import BytesIO
 from pathlib import Path
 from typing import Any, Iterable
 
-from fastapi import File, FastAPI, HTTPException, Query, UploadFile
+from dotenv import load_dotenv
+
+load_dotenv()
+
+from fastapi import File, FastAPI, HTTPException, Query, UploadFile, Form
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse, StreamingResponse
 
 from backend.appeal import build_appeal, build_appeal_docx, build_appeal_pdf
+from backend.llm import generate_appeal_letter, summarize_bill
 from backend.compare_docs import compare_docs
 from backend.copywriter import explain_plain
+from backend.llm_adapters.gemini_adapter import NotConfigured, verbalize
 from backend.egraph import build_evidence_graph
 from backend.exporter import build_explain_docx
 from backend.math_guard import explain_bill
@@ -30,9 +36,37 @@ from backend.session import (
 	list_sessions,
 	resolve_session,
 	start_session,
+    track_appeal_outcome,
+    list_appeal_history,
 )
+
 from backend.upload import redact_text, store_redacted_document
 from backend.upload_eob import _safe_doc_id, handle_upload_file
+from backend.sbc_parser import parse_sbc
+from backend import auth
+
+from pydantic import BaseModel
+
+class AuthRequest(BaseModel):
+    username: str
+    password: str
+
+class AppealTrackRequest(BaseModel):
+    session_id: str
+    doc_id: str
+    status: str
+    notes: str = ""
+
+class AppealAIRequest(BaseModel):
+    session_id: str
+    doc_id: str
+    user_context: str = ""
+
+class AIExplainRequest(BaseModel):
+    session_id: str
+    doc_id: str
+    persona: str = "patient"
+    grade_level: str = "8th Grade"
 
 DATA_ROOT = Path("data")
 
@@ -86,6 +120,13 @@ def _parse_appeal_payload(payload: dict[str, Any]) -> tuple[str, str, str, float
 
 
 
+
+class ChatRequest(BaseModel):
+    question: str
+    doc_id: str | None = None
+    session_id: str | None = None
+
+
 app = FastAPI(title="LumiClaim", version="0.1.0")
 
 app.add_middleware(
@@ -107,6 +148,82 @@ def root() -> RedirectResponse:
 async def health_check() -> dict[str, object]:
 	"""Return readiness metadata for external monitors."""
 	return {"ok": True, "service": "LumiClaim", "version": "0.1.0"}
+
+
+@app.get("/auth/status/{username}")
+def auth_status(username: str) -> dict[str, str]:
+    """Check if user needs migration or is active."""
+    status = auth.get_user_status(username)
+    return {"status": status}
+
+
+@app.post("/auth/register")
+def auth_register(req: AuthRequest) -> dict[str, bool]:
+    """Register new user or set password for migrating user."""
+    if not req.username or not req.password:
+        raise HTTPException(status_code=400, detail="Missing fields")
+        
+    # Prevent overwriting existing password
+    if auth.has_password(req.username):
+         raise HTTPException(status_code=403, detail="User already exists. Please login.")
+         
+    success = auth.register_user(req.username, req.password)
+    return {"success": success}
+
+
+@app.post("/auth/login")
+def auth_login(req: AuthRequest) -> dict[str, bool]:
+    """Verify credentials."""
+    valid = auth.verify_credentials(req.username, req.password)
+    if not valid:
+        # Return HTTP 401 for clarity? Or json success=False?
+        # Frontend handles boolean cleanly.
+        return {"success": False}
+    return {"success": True}
+
+
+@app.post("/sbc/parse")
+async def sbc_parse_route(
+    file: UploadFile = File(...),
+    session_id: str | None = Form(None)
+) -> dict[str, Any]:
+    """Parse an uploaded SBC PDF and return extracted plan attributes."""
+    content = await file.read()
+    
+    # Save to temp file for parser (which expects path)
+    import tempfile
+    import os
+    
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp:
+        tmp.write(content)
+        tmp_path = tmp.name
+        
+    try:
+        attrs = parse_sbc(tmp_path)
+        
+        # Save full text for RAG if session available
+        if "full_text" in attrs:
+            text = attrs.pop("full_text")
+            if session_id and session_id.strip():
+                try:
+                    # Resolve session dir manually or use session helper
+                    s_id = session_id.strip()
+                    # Basic sanitization
+                    if ".." not in s_id and "/" not in s_id: 
+                         # Use original filename to allow multiple docs (e.g. Dental, Medical)
+                         safe_name = "".join(c for c in file.filename if c.isalnum() or c in "._-")
+                         dest = DATA_ROOT / "user_sessions" / s_id / "extracted" / f"SBC_{safe_name}.txt"
+                         if dest.parent.exists():
+                             dest.write_text(text, encoding="utf-8")
+                except Exception:
+                    pass
+    finally:
+        try:
+            os.unlink(tmp_path)
+        except:
+            pass
+            
+    return _with_audit_hash(attrs)
 
 
 @app.post("/upload")
@@ -170,15 +287,31 @@ async def explain(
 	resolved_session = _resolve_session_for_docs(session_id, [doc_id])
 	try:
 		explain_payload = explain_bill(doc_id, session_id=resolved_session)
-		explain_payload["explain_like_12"] = explain_plain(
-			doc_id,
-			explain_payload.get("breakdown"),
-			explain_payload.get("calcs"),
-			explain_payload.get("risk_flags"),
-			persona=persona,
-			level=level,
-			language=language,
-		)
+		# Try Gemini AI first for natural language explanation
+		try:
+			# We only pass keys relevant to the explanation to avoid context window bloat if heavy
+			# But explain_bill payload is usually small enough.
+			# We'll pass the whole thing as verbalize expects a dict.
+			explain_payload["explain_like_12"] = verbalize(
+				persona,
+				level,
+				explain_payload
+			)
+			explain_payload["generated_by"] = "gemini"
+		except Exception as exc:
+			# Fallback if AI not configured or fails
+			print(f"Verbalize failed: {exc}")
+			explain_payload["explain_like_12"] = explain_payload.get("explain_like_12") or "AI explanation unavailable."
+			explain_payload["explain_like_12"] = explain_plain(
+				doc_id,
+				explain_payload.get("breakdown"),
+				explain_payload.get("calcs"),
+				explain_payload.get("risk_flags"),
+				persona=persona,
+				level=level,
+				language=language,
+			)
+			explain_payload["generated_by"] = "deterministic"
 		return _with_audit_hash(explain_payload)
 	except FileNotFoundError as exc:
 		raise HTTPException(status_code=500, detail=str(exc)) from exc
@@ -375,10 +508,14 @@ async def profile_get(session_id: str | None = Query(None)) -> dict[str, object]
 	return _with_audit_hash({"profile": profile})
 
 
+class StartSessionRequest(BaseModel):
+    session_id: str | None = None
+
 @app.post("/session/start")
-async def session_start_route() -> dict[str, str]:
-	"""Create and initialize a new session."""
-	return start_session()
+async def session_start_route(payload: StartSessionRequest | None = None) -> dict[str, str]:
+    """Create and initialize a new session (or resume if session_id provided)."""
+    requested_id = payload.session_id if payload else None
+    return start_session(requested_id)
 
 
 @app.get("/session/list")
@@ -566,22 +703,86 @@ def _reconcile_session(session_hint: str | None) -> dict[str, object]:
 		anomalies.append({"type": "missing_adjustments", "doc_id": doc_id, "rows": items})
 
 	doc_ids = {str(row.get("doc_id")) for row in rows if row.get("doc_id")}
+	for doc_id in doc_ids:
+		# Cross check if doc exists in extracted
+		pass
 
-	response = {
-		"session_id": resolved_session,
-		"row_count": len(rows),
-		"doc_count": len(doc_ids),
-		"totals": totals,
-		"anomalies": anomalies,
-	}
+	return _with_audit_hash({"session_id": resolved_session, "anomalies": anomalies})
 
-	return _with_audit_hash(response)
 
 
 @app.get("/reconcile/session/{session_id}")
-async def reconcile_session(session_id: str) -> dict[str, object]:
-	"""Summarize totals across uploaded EOBs for the session and detect anomalies."""
-	return _reconcile_session(session_id)
+async def reconcile_session_route(session_id: str) -> dict[str, object]:
+	"""Run heuristic reconciliation for the provided session."""
+	resolved_session = resolve_session(session_id, required=True)
+	return _reconcile_session(resolved_session)
+
+
+@app.post("/chat")
+async def chat_route(payload: ChatRequest) -> dict[str, object]:
+    """Answer a question about the current session's documents using RAG."""
+    resolved_session = resolve_session(payload.session_id, required=True)
+    
+    # We pass the doc_id filter if provided
+    # The answer_with_citations function uses 'policy_id' also, which we don't really have a UI for yet
+    # so we'll pass None for policy_id
+    
+    try:
+        result = answer_with_citations(
+            question=payload.question, 
+            doc_id=payload.doc_id, 
+            policy_id=None,
+            session_id=resolved_session
+        )
+        return _with_audit_hash(result)
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+
+
+
+
+
+@app.post("/session/manual_entry")
+async def manual_entry_route(payload: dict[str, Any]) -> dict[str, object]:
+	"""Append a manually entered claim line to the existing session.
+
+	Expects: session_id, billed, allowed, date, description, etc.
+	"""
+	session_raw = payload.get("session_id")
+	if session_raw is None:
+		raise HTTPException(status_code=400, detail="session_id is required")
+	
+	resolved_session = resolve_session(str(session_raw), required=True)
+	
+	# Prepare row
+	# We'll generate a dummy line_id if not present
+	import uuid
+	line_id = payload.get("line_id") or f"MANUAL-{uuid.uuid4().hex[:8].upper()}"
+	
+	row = {
+		"doc_id": "MANUAL_ENTRY", # Virtual doc ID for manual entries
+		"line_id": line_id,
+		"page": 1,
+		"cell_id": "manual",
+		"description": str(payload.get("description", "Manual Entry")),
+		"cpt": str(payload.get("cpt", "")),
+		"billed": float(payload.get("billed") or 0.0),
+		"allowed": float(payload.get("allowed") or 0.0),
+		"insurer_paid": float(payload.get("insurer_paid") or 0.0),
+		"patient_resp": float(payload.get("patient_resp") or 0.0),
+		"adjustments": [], # manual usually doesn't capture adjustments detail
+		"modifiers": [],
+		"date": str(payload.get("date", "")),
+	}
+	
+	try:
+		# Use the backend.session helper
+		from backend.session import append_claim_rows
+		append_claim_rows(resolved_session, [row])
+	except Exception as exc:
+		raise HTTPException(status_code=500, detail=str(exc))
+		
+	return _with_audit_hash({"status": "ok", "line_id": line_id, "row": row})
 
 
 @app.get("/reconcile/session")
@@ -772,3 +973,127 @@ async def session_manual_entry(payload: dict[str, object]) -> dict[str, object]:
 		pass
 
 	return _with_audit_hash({"status": "ok", "session_id": session_id, "doc_id": doc_id, "rows_added": len(sanitized_rows)})
+
+
+@app.post("/appeal/track")
+def track_appeal_endpoint(payload: AppealTrackRequest):
+    """Log an appeal outcome."""
+    try:
+        track_appeal_outcome(payload.session_id, payload.doc_id, payload.status, payload.notes)
+        return {"status": "ok"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/appeal/history")
+def get_appeal_history_endpoint(session_id: str = Query(...)):
+    """Retrieve appeal history."""
+    return list_appeal_history(session_id)
+
+@app.post("/profile/upload_sbc")
+async def upload_sbc_endpoint(
+    session_id: str = Query(...),
+    file: UploadFile = File(...)
+):
+    """Parse an SBC PDF and update the profile."""
+    try:
+        # Reuse EOB upload handler to save file safely
+        file_path = await handle_upload_file(file, session_id)
+        
+        extracted = parse_sbc(str(file_path))
+        if "error" in extracted:
+             raise HTTPException(status_code=400, detail=extracted["error"])
+             
+        # Load existing profile to merge
+        try:
+             current = load_profile(session_id)
+        except Exception:
+             current = {"session_id": session_id}
+             
+        # Merge logic
+        if extracted.get("deductible_individual"):
+            current["deductible_individual"] = extracted["deductible_individual"]
+            # Also reset remaining if we are setting total
+            current["deductible_remaining"] = extracted["deductible_individual"]
+            
+        if extracted.get("oop_individual"):
+            current["oop_max"] = extracted["oop_individual"]
+            current["oop_remaining"] = extracted["oop_individual"]
+            
+        saved = save_profile(current)
+        
+        return {
+            "status": "ok",
+            "extracted": extracted,
+            "profile": saved
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/appeal_docx")
+async def appeal_docx_route(payload: dict[str, Any]):
+    """Generate a DOCX appeal letter."""
+    doc_id, tone, audience, psl_delta, session_hint = _parse_appeal_payload(payload)
+    session_id = _resolve_session_for_docs(session_hint, [doc_id])
+
+    docx_bytes = build_appeal_docx(
+        doc_id, tone=tone, audience=audience, psl_delta=psl_delta, session_id=session_id
+    )
+    filename = f"Appeal_{doc_id}.docx"
+    return StreamingResponse(
+        BytesIO(docx_bytes),
+        media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+    )
+
+@app.post("/appeal/generate_ai")
+def generate_appeal_ai_route(req: AppealAIRequest):
+    """Generate an AI-drafted appeal letter."""
+    s_id = resolve_session(req.session_id)
+    if not s_id: 
+        raise HTTPException(400, "Invalid session")
+
+    # 1. Gather Claim Data (Simple approach: use explain_bill summary)
+    try:
+        struct = explain_bill(req.doc_id, session_id=s_id)
+        breakdown = struct.get("breakdown", [])
+        breakdown_text = "; ".join([f"{x['label']}: {x['value']}" for x in breakdown])
+        
+        # 2. Gather Policy Context
+        policy_text = ""
+        s_dir = DATA_ROOT / "user_sessions" / s_id / "extracted"
+        if s_dir.exists():
+            for f in s_dir.glob("SBC_*.txt"):
+                policy_text += f.read_text(encoding="utf-8") + "\n\n"
+        
+        # 3. Call LLM
+        draft = generate_appeal_letter(
+            doc_id=req.doc_id,
+            deny_code="See Attached EOB", 
+            diagnosis="See Attached Records", 
+            procedure=breakdown_text,
+            user_context=req.user_context,
+            policy_context=policy_text
+        )
+        return {"body": draft, "subject": f"Appeal for {req.doc_id}"}
+
+    except Exception as e:
+        raise HTTPException(500, f"Generation failed: {e}")
+
+@app.post("/explain/ai")
+def explain_ai_route(req: AIExplainRequest):
+    """Generate an AI summary of the bill."""
+    s_id = resolve_session(req.session_id)
+    if not s_id: 
+         raise HTTPException(400, "Invalid session")
+
+    try:
+        # Get data
+        struct = explain_bill(req.doc_id, session_id=s_id)
+        breakdown = struct.get("breakdown", [])
+        breakdown_text = "; ".join([f"{x['label']}: {x['value']}" for x in breakdown])
+        
+        # Call LLM
+        summary = summarize_bill(breakdown_text, req.persona, req.grade_level)
+        return {"summary": summary}
+    except Exception as e:
+        raise HTTPException(500, f"AI Explanation failed: {e}")

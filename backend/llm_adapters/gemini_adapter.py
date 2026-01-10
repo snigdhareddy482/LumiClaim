@@ -67,4 +67,14 @@ def _extract_text(response: Any) -> str:
 	return ""
 
 
-__all__ = ["NotConfigured", "verbalize"]
+def extract_text_from_image(image_data: Any) -> str:
+    """Use Gemini Vision to extract text from an image (PIL Image or bytes).
+    
+    TODO: Gemini Vision OCR is currently disabled due to reliability issues
+    (API hangs, timeouts). Re-enable once stability is confirmed.
+    """
+    # TEMPORARILY DISABLED - Gemini Vision causes server hangs
+    print("[GEMINI OCR] DISABLED - returning empty to prevent server hang")
+    return ""
+
+__all__ = ["NotConfigured", "verbalize", "extract_text_from_image"]

@@ -13,7 +13,7 @@ def _get_bool(env_var: str, default: bool) -> bool:
 	return value.strip().lower() in {"1", "true", "yes", "on"}
 
 
-USE_ELASTIC: Final[bool] = _get_bool("USE_ELASTIC", False)
+USE_ELASTIC: Final[bool] = False # _get_bool("USE_ELASTIC", False)
 USE_VERTEX: Final[bool] = _get_bool("USE_VERTEX", False)
 
 ELASTIC_URL: Final[str] = os.getenv("ELASTIC_URL", "http://localhost:9200")

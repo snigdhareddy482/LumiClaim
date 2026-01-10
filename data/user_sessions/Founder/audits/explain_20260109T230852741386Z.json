@@ -1,0 +1,176 @@
+{
+  "doc_id": "EOB-102",
+  "verifiability_score": 1.0,
+  "breakdown": [
+    {
+      "label": "Amount Billed",
+      "value": 1455.0,
+      "source": {
+        "page": 2,
+        "cell": "ocr:R14"
+      }
+    },
+    {
+      "label": "Allowed Amount",
+      "value": 582.0,
+      "source": {
+        "page": 2,
+        "cell": "ocr:R14"
+      }
+    },
+    {
+      "label": "Insurer Paid",
+      "value": 0.0,
+      "source": {
+        "page": 2,
+        "cell": "ocr:R14"
+      }
+    },
+    {
+      "label": "Adjustments",
+      "value": 0,
+      "source": {
+        "page": 2,
+        "cell": "ocr:R14"
+      }
+    },
+    {
+      "label": "Patient Responsibility",
+      "value": 1455.0,
+      "source": {
+        "page": 2,
+        "cell": "ocr:R14"
+      }
+    }
+  ],
+  "explain_like_12": "For document EOB-102, the doctor billed $1,455.00. The insurer says only $582.00 counts after rules, so they paid $0.00. Adjustments of $0.00 were applied, leaving you with $1,455.00 to cover.",
+  "citations": [
+    {
+      "doc_id": "EOB-102",
+      "page": 2,
+      "cell": "ocr:R14",
+      "line_id": "L-2-ocr-14"
+    }
+  ],
+  "calcs": [
+    {
+      "label": "Amount Billed",
+      "formula": "TOTAL.billed",
+      "inputs": [
+        {
+          "name": "TOTAL.billed",
+          "value": 1455.0,
+          "source": {
+            "page": 2,
+            "cell": "ocr:R14"
+          }
+        }
+      ],
+      "result": 1455.0,
+      "unverifiable": false
+    },
+    {
+      "label": "Allowed Amount",
+      "formula": "TOTAL.allowed",
+      "inputs": [
+        {
+          "name": "TOTAL.allowed",
+          "value": 582.0,
+          "source": {
+            "page": 2,
+            "cell": "ocr:R14"
+          }
+        }
+      ],
+      "result": 582.0,
+      "unverifiable": false
+    },
+    {
+      "label": "Insurer Paid",
+      "formula": "TOTAL.insurer_paid",
+      "inputs": [
+        {
+          "name": "TOTAL.insurer_paid",
+          "value": 0.0,
+          "source": {
+            "page": 2,
+            "cell": "ocr:R14"
+          }
+        }
+      ],
+      "result": 0.0,
+      "unverifiable": false
+    },
+    {
+      "label": "Adjustments",
+      "formula": "sum(adjustments.amount)",
+      "inputs": [
+        {
+          "name": "adjustment_sum",
+          "value": 0.0,
+          "source": {
+            "page": 2,
+            "cell": "ocr:R14"
+          }
+        }
+      ],
+      "result": 0,
+      "unverifiable": false
+    },
+    {
+      "label": "Patient Responsibility",
+      "formula": "billed - insurer_paid - adjustments_total",
+      "inputs": [
+        {
+          "name": "TOTAL.billed",
+          "value": 1455.0,
+          "source": {
+            "page": 2,
+            "cell": "ocr:R14"
+          }
+        },
+        {
+          "name": "TOTAL.insurer_paid",
+          "value": 0.0,
+          "source": {
+            "page": 2,
+            "cell": "ocr:R14"
+          }
+        },
+        {
+          "name": "Adjustments.total",
+          "value": 0,
+          "source": {
+            "page": 2,
+            "cell": "ocr:R14"
+          }
+        }
+      ],
+      "result": 1455.0,
+      "unverifiable": false
+    }
+  ],
+  "warnings": [
+    "TOTAL row inconsistent; recomputed from components."
+  ],
+  "unverifiable_fields": [],
+  "takeaway": "You owe $1,455.00 because deductible and contract adjustments applied after the insurer payment. If you believe Line L-2-ocr-8 residual $434.90 exceeds recorded adjustments; consider contractual allowances needs review, you can submit the attached appeal with supporting notes.",
+  "risk_flags": [
+    {
+      "label": "Missing adjustment risk",
+      "severity": "medium",
+      "rationale": "Line L-2-ocr-8 residual $434.90 exceeds recorded adjustments; consider contractual allowances."
+    },
+    {
+      "label": "Missing adjustment risk",
+      "severity": "medium",
+      "rationale": "Line L-2-ocr-11 residual $289.10 exceeds recorded adjustments; consider contractual allowances."
+    },
+    {
+      "label": "Missing adjustment risk",
+      "severity": "medium",
+      "rationale": "Line L-2-ocr-14 residual $724.00 exceeds recorded adjustments; consider contractual allowances."
+    }
+  ],
+  "audit_hash": "724db6946ea32d05"
+}

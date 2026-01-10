@@ -11,6 +11,8 @@ import json
 from pathlib import Path
 from typing import List, Tuple, Dict, Any
 
+from backend.llm_adapters.gemini_adapter import extract_text_from_image
+
 try:
     import pdfplumber  # type: ignore
 except Exception:  # pragma: no cover - optional
@@ -143,6 +145,19 @@ def parse_pdf(path: str) -> Tuple[List[SchemaRow], List[str], List[str]]:
             with pdfplumber.open(p) as pdf:
                 for i, page in enumerate(pdf.pages, start=1):
                     text = page.extract_text() or ""
+                    
+                    # Fallback to Gemini OCR if text is sparse (likely scanned)
+                    if len(text.strip()) < 50 and hasattr(page, "to_image"):
+                        try:
+                            # Resolution 300 is standard for OCR
+                            img = page.to_image(resolution=300).original
+                            ocr_text = extract_text_from_image(img)
+                            if ocr_text and len(ocr_text) > len(text):
+                                text = ocr_text
+                                notes.append(f"page_{i}_ocr_gemini")
+                        except Exception as e:
+                            notes.append(f"ocr_failed_page_{i}:{e}")
+                            
                     raw_pages.append(text)
         except Exception as exc:
             notes.append(f"pdfplumber_failed:{exc}")
@@ -161,6 +176,15 @@ def parse_pdf(path: str) -> Tuple[List[SchemaRow], List[str], List[str]]:
                 rows.extend(norm)
         except Exception as exc:
             notes.append(f"camelot_failed:{exc}")
+
+    # Fallback: if no structured rows found, try heuristic on the raw text
+    if not rows and raw_pages:
+        for p_idx, p_text in enumerate(raw_pages, start=1):
+            heur_rows = _extract_rows_from_text(p_text, page=p_idx)
+            if heur_rows:
+                rows.extend(heur_rows)
+        if rows:
+            notes.append(f"heuristic_pdf: found {len(rows)} rows from text")
 
     return rows, raw_pages, notes
 
@@ -200,6 +224,9 @@ def parse_docx(path: str) -> Tuple[List[SchemaRow], List[str], List[str]]:
     return rows, raw_pages, notes
 
 
+    return rows, raw_pages, notes
+
+
 def parse_image(path: str) -> Tuple[List[SchemaRow], List[str], List[str]]:
     """OCR an image into text pages and return empty rows.
 
@@ -209,15 +236,136 @@ def parse_image(path: str) -> Tuple[List[SchemaRow], List[str], List[str]]:
     raw_pages: List[str] = []
     notes: List[str] = []
 
-    if Image is None or pytesseract is None:
-        notes.append("OCR unavailable")
+    try:
+        from PIL import Image as PILImage
+        img = PILImage.open(path)
+    except Exception as e:
+        notes.append(f"image_open_failed: {e}")
         return rows, raw_pages, notes
 
+    text = ""
+    
+    # Try Gemini OCR first as it is stronger than Tesseract for complex docs
     try:
-        img = Image.open(path)
-        text = pytesseract.image_to_string(img)
-        raw_pages.append(text)
-    except Exception as exc:
-        notes.append(f"ocr_failed:{exc}")
+        text = extract_text_from_image(img)
+        if text:
+            notes.append("gemini_ocr_success")
+    except Exception as e:
+        notes.append(f"gemini_ocr_failed: {e}")
+    
+    # Fallback to Tesseract if Gemini fails or is not configured
+    if not text and pytesseract is not None:
+        try:
+            text = pytesseract.image_to_string(img)
+            if text:
+                notes.append("tesseract_ocr_success")
+        except Exception as e:
+            notes.append(f"tesseract_failed: {e}")
+            
+    raw_pages.append(text or "")
+    
+    # heuristic: try to extract rows from the OCR text
+    if text:
+        extracted_rows = _extract_rows_from_text(text, page=1)
+        if extracted_rows:
+            rows.extend(extracted_rows)
+            notes.append(f"heuristic_ocr: found {len(extracted_rows)} rows")
+        else:
+            notes.append("heuristic_ocr: no structured rows found")
 
     return rows, raw_pages, notes
+
+
+def _extract_rows_from_text(text: str, page: int = 1) -> List[SchemaRow]:
+    """Heuristic extraction of EOB rows from raw text lines.
+    
+    Looks for lines starting with dates or containing multiple dollar amounts.
+    """
+    import re
+    rows: List[SchemaRow] = []
+    
+    lines = text.splitlines()
+    # Pattern: Date ... CPT? ... Money ... Money
+    # 02/24/02/24  chiropractmanj 1-2regions  $40.00  $0.00  13106  $3.77  $36.23
+    # We'll be lenient: look for at least 2 distinct dollar amounts or numbers
+    
+    # Matches MM/DD/YY or MM/DD/YYYY
+    date_pattern = re.compile(r'(\d{1,2}/\d{1,2}/\d{2,4})')
+    # Matches money $40.00 or 40.00
+    money_pattern = re.compile(r'(\$?\d{1,3}(?:,\d{3})*\.\d{2})')
+    
+    for idx, line in enumerate(lines):
+        if not line.strip():
+            continue
+            
+        # 1. Check for date
+        date_match = date_pattern.search(line)
+        
+        # 2. Check for monies
+        monies = money_pattern.findall(line)
+        
+        # Candidates for valid claim lines usually have a date AND at least 2 money figures (Billed, Allowed, Paid, etc)
+        # Or just many money figures
+        if len(monies) >= 2:
+            row: SchemaRow = {
+                "line_id": f"L-{page}-ocr-{idx}",
+                "page": page,
+                "cell_id": f"ocr:R{idx}",
+                "cpt": None,
+                "modifier": None,
+                "billed": None,
+                "allowed": None,
+                "insurer_paid": None,
+                "adjustments": [],
+                "patient_resp": None,
+                "description": line.strip(), # fallback description is whole line
+            }
+            
+            # Parsing logic:
+            # We assume monies are in order: Billed, [Ineligible], [Discount], [Deductible], [Copay], [Coins], Paid, [Resp]
+            # This is highly variable. We'll try to map largest to Billed.
+            # And usually the last non-zero might be Patient Resp? 
+            # This is tricky without spatial layout.
+            
+            # Simple heuristic: 
+            # Max value -> Billed
+            # If we detect "Patient Responsibility" in headers we might know index, but here we don't.
+            
+            # Let's clean values to floats
+            floats = []
+            for m in monies:
+                try:
+                    f = float(m.replace("$", "").replace(",", ""))
+                    floats.append(f)
+                except:
+                    pass
+            
+            if not floats:
+                continue
+
+            # Assign Billed (usually the first or max)
+            # In EOBs: Date, Proc, Billed, Allowed, ...
+            # The first money is often Billed.
+            row["billed"] = floats[0]
+            
+            # If we have >= 3 values, maybe Billed, Allowed, Paid?
+            # Or Billed, Ineligible, Allowed?
+            # Let's try to find Patient Responsibility. It's often the last column.
+            if len(floats) >= 3:
+                row["patient_resp"] = floats[-1]
+                row["insurer_paid"] = floats[-2] if len(floats) > 3 else 0.0
+                row["allowed"] = floats[1] # Guessing
+            elif len(floats) == 2:
+                # Billed, Paid? or Billed, Resp?
+                row["allowed"] = floats[0]
+                row["patient_resp"] = floats[1]
+
+            # Try to grab CPT? 5 digit code.
+            # 13106
+            cpt_match = re.search(r'\b\d{5}\b', line)
+            if cpt_match:
+                row["cpt"] = cpt_match.group(0)
+            
+            rows.append(row)
+            
+    return rows

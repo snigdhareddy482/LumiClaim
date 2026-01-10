@@ -27,6 +27,7 @@ class ClaimRow(BaseModel):
 	insurer_paid: float
 	adjustments: list[Adjustment] = Field(default_factory=list)
 	patient_resp: float | None = None
+	description: str | None = None
 
 
 class ExplainResponse(BaseModel):

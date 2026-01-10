@@ -38,6 +38,10 @@ def _validate_totals(
 
 	total_row = next((row for row in rows if row.line_id.upper() == "TOTAL"), None)
 	if total_row is None:
+		# Fallback: Look for "Total" in description
+		total_row = next((row for row in rows if row.description and "total" in row.description.lower()), None)
+
+	if total_row is None:
 		raise ValueError("Document does not contain a TOTAL row")
 
 	adjustment_amounts = [adj.amount for adj in total_row.adjustments]

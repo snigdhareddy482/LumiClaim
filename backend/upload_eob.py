@@ -180,13 +180,32 @@ def _extract_from_pdf_bytes(content: bytes) -> Tuple[str, int]:
 
 
 def _extract_from_image_bytes(content: bytes) -> Tuple[str, int]:
-    if Image is None or pytesseract is None:
-        raise RuntimeError("PIL/pytesseract not available")
     from io import BytesIO
-
-    img = Image.open(BytesIO(content))
-    text = pytesseract.image_to_string(img)
-    return text, 1
+    from PIL import Image as PILImage
+    
+    img = PILImage.open(BytesIO(content))
+    
+    # Try Gemini Vision OCR first (most powerful)
+    try:
+        from backend.llm_adapters.gemini_adapter import extract_text_from_image
+        text = extract_text_from_image(img)
+        if text and len(text.strip()) > 20:
+            return text, 1
+    except Exception as e:
+        # Log but don't fail - try Tesseract next
+        print(f"Gemini OCR failed: {e}")
+    
+    # Fallback to Tesseract if available
+    if pytesseract is not None:
+        try:
+            text = pytesseract.image_to_string(img)
+            if text and len(text.strip()) > 20:
+                return text, 1
+        except Exception as e:
+            print(f"Tesseract OCR failed: {e}")
+    
+    # Return empty if both failed
+    return "", 1
 
 
 def handle_upload_file(filename: str, content: bytes, session_id: str | None = None) -> Dict[str, Any]:
@@ -212,6 +231,42 @@ def handle_upload_file(filename: str, content: bytes, session_id: str | None = N
         raise HTTPException(status_code=400, detail="No session. Call /session/start first.")
 
     raw_dir, extracted_dir = _make_session_dirs(session_id)
+    
+    # -- Deduplication Start --
+    import hashlib
+    file_hash = hashlib.sha256(content).hexdigest()
+    hashes_file = BASE_SESSION_PATH / session_id / "_hashes.json"
+    hashes_map = {}
+    if hashes_file.exists():
+        try:
+            hashes_map = json.loads(hashes_file.read_text(encoding="utf-8"))
+        except Exception:
+            pass
+
+    if file_hash in hashes_map:
+        # Return existing document metadata
+        existing_doc_id = hashes_map[file_hash]
+        # Try to load existing artifact to return proper preview
+        try:
+            existing_path = extracted_dir / f"{existing_doc_id}.json"
+            if existing_path.exists():
+                artifact = json.loads(existing_path.read_text(encoding="utf-8"))
+                artifact["notes"] = artifact.get("notes", []) + ["Duplicate upload detected; returned existing document."]
+                return {
+                    "session_id": session_id,
+                    "doc_id": existing_doc_id,
+                    "preview": {
+                        "rows": [], # We don't reload rows here to save time, or we could load from claims_struct
+                        "text_snippets": [artifact.get("extracted_text_preview", "")],
+                    },
+                    "duplicate": True
+                }
+        except Exception:
+            # If artifact missing, proceed to re-process but maybe warn?
+            # Ideally re-process if missing. For now, let's fall through to re-process if artifact header missing.
+            pass
+    # -- Deduplication End --
+
     safe_name = "".join(ch for ch in filename if ch in (string.ascii_letters + string.digits + ".-_"))
     saved_path = _save_raw_file(raw_dir, safe_name or filename, content)
 
@@ -246,15 +301,14 @@ def handle_upload_file(filename: str, content: bytes, session_id: str | None = N
                     parsed_rows, raw_pages = [], []
         elif ext in {".png", ".jpg", ".jpeg"}:
             # try OCR
+            extracted_text, pages = _extract_from_image_bytes(content)
+            if extracted_text:
+                notes_parts.append("ocr_success")
             try:
-                extracted_text, pages = _extract_from_image_bytes(content)
-                try:
-                    parsed_rows, raw_pages, parse_notes = extractors.parse_image(str(saved_path))
-                    notes_parts.extend(parse_notes or [])
-                except Exception:
-                    parsed_rows, raw_pages = [], []
-            except RuntimeError:
-                notes_parts.append("OCR unavailable; text layer only")
+                parsed_rows, raw_pages, parse_notes = extractors.parse_image(str(saved_path))
+                notes_parts.extend(parse_notes or [])
+            except Exception:
+                parsed_rows, raw_pages = [], []
     except Exception as exc:  # pragma: no cover - defensive
         notes_parts.append(f"extraction_failed: {str(exc)}")
 
@@ -347,6 +401,14 @@ def handle_upload_file(filename: str, content: bytes, session_id: str | None = N
 
     if not text_snippets:
         text_snippets.append(artifact["extracted_text_preview"])
+
+    # -- Deduplication Persist --
+    try:
+        hashes_map[file_hash] = doc_id
+        hashes_file.write_text(json.dumps(hashes_map, indent=2), encoding="utf-8")
+    except Exception:
+        pass
+    # -- End Persist --
 
     return {
         "session_id": session_id,

@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+import json
+import os
+from pathlib import Path
 from typing import Any, Iterable
 
 from backend.config import USE_ELASTIC, USE_VERTEX
@@ -18,9 +21,12 @@ else:  # pragma: no cover - local mode default
 	vertex_verbalize = None
 
 
-def answer_with_citations(question: str, doc_id: str | None, policy_id: str | None) -> dict:
+def answer_with_citations(question: str, doc_id: str | None, policy_id: str | None, session_id: str | None = None) -> dict:
 	"""Retrieve supporting evidence and return a grounded answer stub."""
 
+	# Load profile data if available
+	profile_data = _load_profile(session_id) if session_id else None
+	
 	if USE_ELASTIC and elastic_adapter is not None:
 		result = elastic_adapter.search(question, doc_id=doc_id, top_k=3)
 		hits = _normalize_hits(result.get("hits", []))
@@ -33,7 +39,7 @@ def answer_with_citations(question: str, doc_id: str | None, policy_id: str | No
 			"hits": hits,
 		}
 	else:
-		hits = _normalize_hits(local_search(question, doc_id=doc_id, top_k=3))
+		hits = _normalize_hits(local_search(question, doc_id=doc_id, session_id=session_id, top_k=3))
 		retrieval_source = "hybrid_local"
 		retrieval_debug = {
 			"engine": retrieval_source,
@@ -41,16 +47,30 @@ def answer_with_citations(question: str, doc_id: str | None, policy_id: str | No
 			"doc_filter": doc_id,
 			"hits": hits,
 		}
+	
+	# Build answer with profile context
+	profile_context = ""
+	if profile_data:
+		profile_context = _format_profile_context(profile_data)
+	
 	if hits:
 		summary = "; ".join(
 			f"{hit['doc_id']} line {hit['line_id']} (page {hit['page']})"
 			for hit in hits
 		)
-		answer = f"Top supporting passages located: {summary}."
+		answer_parts = []
+		if profile_context:
+			answer_parts.append(f"Your insurance profile: {profile_context}")
+		answer_parts.append(f"Relevant claims data: {summary}")
+		answer = ". ".join(answer_parts) + "."
 		verifiability = min(0.95, 0.8 + 0.05 * len(hits))
 	else:
-		answer = "No supporting passages were located in the local corpus."
-		verifiability = 0.5
+		if profile_context:
+			answer = f"Your insurance profile: {profile_context}. No claims found yet."
+			verifiability = 0.7
+		else:
+			answer = "No supporting data was found."
+			verifiability = 0.5
 
 	citations = _to_citations(hits)
 
@@ -116,3 +136,29 @@ def _to_citations(hits: Iterable[dict[str, Any]]) -> list[dict[str, Any]]:
 		}
 		for hit in hits
 	]
+
+
+def _load_profile(session_id: str) -> dict[str, Any] | None:
+	"""Load profile data for the session."""
+	profile_path = Path(os.path.dirname(__file__)) / ".." / "data" / "user_sessions" / session_id / "profile.json"
+	if not profile_path.exists():
+		return None
+	try:
+		with open(profile_path, "r", encoding="utf-8") as f:
+			return json.load(f)
+	except Exception:
+		return None
+
+
+def _format_profile_context(profile: dict[str, Any]) -> str:
+	"""Format profile data into a readable context string."""
+	parts = []
+	if profile.get("patient_name"):
+		parts.append(f"Patient: {profile['patient_name']}")
+	if profile.get("deductible_individual"):
+		parts.append(f"Deductible: ${profile['deductible_individual']:.2f}")
+	if profile.get("oop_max_individual"):
+		parts.append(f"Out-of-Pocket Max: ${profile['oop_max_individual']:.2f}")
+	if profile.get("coinsurance_pct"):
+		parts.append(f"Coinsurance: {profile['coinsurance_pct']}%")
+	return ", ".join(parts) if parts else "Plan details available"

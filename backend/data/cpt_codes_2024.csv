@@ -1,0 +1,104 @@
+cpt,description,allowed_amount
+99202,"Office/outpatient visit, new patient, 15-29 min",73.40
+99203,"Office/outpatient visit, new patient, 30-44 min",113.00
+99204,"Office/outpatient visit, new patient, 45-59 min",167.00
+99205,"Office/outpatient visit, new patient, 60-74 min",220.00
+99211,"Office/outpatient visit, est patient, minimal problems",23.00
+99212,"Office/outpatient visit, est patient, 10-19 min",56.00
+99213,"Office/outpatient visit, est patient, 20-29 min",92.05
+99214,"Office/outpatient visit, est patient, 30-39 min",129.80
+99215,"Office/outpatient visit, est patient, 40-54 min",183.00
+G2211,"Visit complex inherent to E/M",16.05
+36415,"Collection of venous blood by venipuncture",3.00
+80053,"Comprehensive metabolic panel",11.20
+85025,"Blood count; complete (CBC), automated",8.50
+80061,"Lipid panel",10.50
+84443,"Thyroid stimulating hormone (TSH)",18.00
+93000,"Electrocardiogram, routine ECG with at least 12 leads",15.50
+71046,"Radiologic examination, chest; 2 views",30.15
+73030,"Radiologic examination, shoulder; complete, min 2 views",28.32
+97110,"Therapeutic procedure, 1 or more areas, each 15 min; exercises",26.50
+97140,"Manual therapy techniques (eg, mobilization/manipulation)",24.00
+90834,"Psychotherapy, 45 minutes with patient",105.00
+90837,"Psychotherapy, 60 minutes with patient",155.00
+99283,"Emergency department visit, moderate severity",185.00
+99284,"Emergency department visit, high severity",310.00
+99285,"Emergency department visit, high severity, threat to function",480.00
+10060,"Incision and drainage of abscess",120.00
+17000,"Destruction of premalignant lesions (eg, actinic keratoses)",80.00
+17110,"Destruction of benign lesions up to 14",110.00
+20610,"Arthrocentesis, aspiration and/or injection, major joint",75.00
+27447,"Arthroplasty, knee, condyle and plateau (Total Knee)",1400.00
+27130,"Arthroplasty, acetabular and proximal femoral (Total Hip)",1350.00
+45378,"Colonoscopy, flexible; diagnostic",240.00
+43239,"EGD upper GI endoscopy, biopsy",280.00
+66984,"Extracapsular cataract removal with insertion of IOL",600.00
+K0001,"Standard wheelchair",45.00
+E0570,"Nebulizer, with compressor",30.00
+J7613,"Albuterol, inhalation solution, fda-approved final product",0.15
+J1100,"Injection, dexamethasone sodium phosphate, 1 mg",0.10
+J3301,"Injection, triamcinolone acetonide, not otherwise specified, 10 mg",2.50
+90471,"Immunization administration",25.00
+90677,"Pneumococcal conjugate vaccine, 20 valent",260.00
+90715,"Tetanus, diphtheria toxoids and acellular pertussis vaccine",45.00
+J0171,"Injection, Adrenalin, 0.1 mg",0.80
+A0427,"Ambulance service, advanced life support, emergency transport",450.00
+A0425,"Ground mileage, per statute mile",8.50
+10061,"Incision and drainage of abscess; complicated or multiple",285.00
+11042,"Debridement, subcutaneous tissue; first 20 sq cm",140.00
+11730,"Avulsion of nail plate, partial or complete, simple; single",95.00
+12001,"Simple repair of superficial wounds of scalp, neck, axillae, ext genitalia, trunk/extremities",130.00
+17004,"Destruction of premalignant lesions, 15 or more lesions",170.00
+17260,"Destruction, malignant lesion (eg, laser surgery, electrosurgery, cryosurgery)",115.00
+20550,"Injection(s); single tendon sheath, or ligament, aponeurosis",55.00
+20605,"Arthrocentesis, aspiration and/or injection, intermediate joint or bursa",50.00
+27445,"Arthroplasty, knee, hinge prothesis",1600.00
+29881,"Arthroscopy, knee, surgical; with meniscectomy",600.00
+31231,"Nasal endoscopy, diagnostic, unilateral or bilateral",190.00
+43235,"Upper gastrointestinal endoscopy including esophagus, stomach, and either the duodenum",350.00
+45380,"Colonoscopy, flexible; with biopsy, single or multiple",480.00
+45385,"Colonoscopy, flexible; with removal of tumor(s), polyp(s), or other lesion(s)",520.00
+59400,"Routine obstetric care including antepartum care, vaginal delivery",2100.00
+59510,"Routine obstetric care including antepartum care, cesarean delivery",2400.00
+64483,"Injection(s), anesthetic agent and/or steroid, transforaminal epidural",310.00
+66982,"Extracapsular cataract removal with insertion of intraocular lens prosthesis",750.00
+67028,"Intravitreal injection of a pharmacologic agent",100.00
+70450,"CT head or brain; without contrast material",140.00
+70553,"MRI brain stem; without contrast material followed by contrast",320.00
+71045,"Radiologic examination, chest; single view",25.00
+72148,"MRI lumbar spine; without contrast material",290.00
+73721,"MRI joint of lower extremity; without contrast material",280.00
+74176,"CT abdomen and pelvis; without contrast material",310.00
+76700,"Ultrasound, abdominal, real time with image documentation; complete",130.00
+73502,"Radiologic examination, hip, unilateral; with pelvis",35.00
+80048,"Basic metabolic panel (Calcium, total)",9.50
+80305,"Drug test(s), presumptive, any number of drug classes, optical observation",12.00
+81001,"Urinalysis, by dip stick or tablet reagent; automated",3.50
+82306,"Vitamin D; 25 hydroxy, includes fraction(s), if performed",35.00
+83036,"Hemoglobin; glycosylated (A1C)",11.00
+84153,"Prostate specific antigen (PSA); total",22.00
+84439,"Thyroxine; free",10.50
+85018,"Blood count; hemoglobin",2.50
+85610,"Prothrombin time",4.50
+87086,"Culture, bacterial; quantitative colony count, urine",9.00
+87804,"Infectious agent antigen detection by immunoassay with direct optical observation; Influenza",14.00
+87880,"Infectious agent antigen detection by immunoassay with direct optical observation; Strep A",14.00
+90791,"Psychiatric diagnostic evaluation",145.00
+90853,"Group psychotherapy (other than of a multiple-family group)",30.00
+92004,"Ophthalmological services: medical examination and evaluation",140.00
+92014,"Ophthalmological services: medical examination and evaluation, est patient",110.00
+93306,"Echocardiography, transthoracic, real-time with image documentation",210.00
+94010,"Spirometry, including graphic record, total and timed vital capacity",35.00
+94640,"Pressurized or nonpressurized inhalation treatment for acute airway obstruction",18.00
+95810,"Polysomnography; age 6 years or older, sleep staging with 4 or more params",650.00
+96360,"Intravenous infusion, hydration; initial, 31 minutes to 1 hour",45.00
+96372,"Therapeutic, prophylactic, or diagnostic injection (specify substance or drug)",20.00
+97112,"Therapeutic procedure, 1 or more areas, each 15 min; neuromuscular reeducation",28.00
+97530,"Therapeutic activities, direct (one-on-one) patient contact",30.00
+98941,"Chiropractic manipulative treatment (CMT); spinal, 3-4 regions",35.00
+99281,"Emergency department visit, low severity",25.00
+99282,"Emergency department visit, low to moderate severity",45.00
+A0428,"Ambulance service, basic life support, non-emergency transport",220.00
+G0402,"Initial preventive physical examination; face-to-face visit",130.00
+G0438,"Annual wellness visit; includes a personalized prevention plan of service (PPS), initial visit",135.00
+G0439,"Annual wellness visit, includes a personalized prevention plan of service (PPS), subsequent visit",95.00

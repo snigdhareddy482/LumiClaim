@@ -45,8 +45,8 @@ class ElasticAdapter:
 		try:
 			if not self._client.indices.exists(index=_INDEX_NAME):
 				self._client.indices.create(index=_INDEX_NAME, **mapping)
-		except ApiError as exc:  # pragma: no cover - depends on cluster availability
-			LOGGER.warning("Unable to create index %s: %s", _INDEX_NAME, exc)
+		except Exception as exc:  # pragma: no cover - depends on cluster availability
+			LOGGER.warning("Unable to create index %s. Is Elastic running? %s", _INDEX_NAME, exc)
 
 	def index_minimal(self, samples_path: str | Path) -> Dict[str, Any]:
 		"""Bulk index a handful of sample documents for quick experimentation."""
@@ -76,15 +76,22 @@ class ElasticAdapter:
 		LOGGER.info("Indexed %s sample rows into %s", len(actions), _INDEX_NAME)
 		return {"indexed": len(actions)}
 
-	def search(self, query: str, k: int = 3) -> List[Dict[str, Any]]:
+	def search(self, query: str, doc_id: str | None = None, top_k: int = 3) -> List[Dict[str, Any]]:
 		"""Return the top matching rows for the supplied query."""
 
 		if not query.strip():
 			return []
 
+		must_clause = {"match": {"raw_text": {"query": query}}}
+		
+		query_block = {"bool": {"must": must_clause}}
+		
+		if doc_id:
+			query_block["bool"]["filter"] = {"term": {"doc_id": doc_id}}
+
 		body = {
-			"size": k,
-			"query": {"match": {"raw_text": {"query": query}}},
+			"size": top_k,
+			"query": query_block,
 		}
 		try:
 			response = self._client.search(index=_INDEX_NAME, body=body)
@@ -93,6 +100,8 @@ class ElasticAdapter:
 			return []
 
 		return [self._format_hit(hit) for hit in response.get("hits", {}).get("hits", [])]
+
+
 
 	def _yield_actions(self, payload: Dict[str, Any]) -> Iterable[Dict[str, Any]]:
 		for doc_id, rows in payload.items():
@@ -162,8 +171,8 @@ def index_minimal(samples_path: str | Path) -> Dict[str, Any]:
 	return _get_adapter().index_minimal(samples_path)
 
 
-def search(query: str, k: int = 3) -> List[Dict[str, Any]]:
-	return _get_adapter().search(query, k=k)
+def search(query: str, doc_id: str | None = None, top_k: int = 3) -> List[Dict[str, Any]]:
+	return _get_adapter().search(query, doc_id=doc_id, top_k=top_k)
 
 
 __all__ = [

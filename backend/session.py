@@ -271,8 +271,12 @@ def load_claim_rows(session_id: str) -> list[dict[str, Any]]:
 
 def load_claim_rows_for_doc(session_id: str, doc_id: str) -> list[dict[str, Any]]:
     rows = load_claim_rows(session_id)
+    print(f"DEBUG: Loaded {len(rows)} rows for session {session_id}. Target doc_id: '{doc_id}'")
     filtered = [row for row in rows if str(row.get("doc_id")) == doc_id]
     if not filtered:
+        # Debug: check what doc_ids are present
+        present_ids = {str(row.get("doc_id")) for row in rows}
+        print(f"DEBUG: Failed to find target. Available doc_ids: {present_ids}")
         raise KeyError(f"Unknown document id '{doc_id}' for session {session_id}")
     return filtered
 
@@ -342,10 +346,41 @@ def list_sessions() -> dict[str, list[dict[str, Any]]]:
     return {"sessions": sessions}
 
 
-def start_session() -> dict[str, str]:
-    """Create a new session directory tree with bootstrap artifacts and register it as current."""
+def start_session(requested_session_id: str | None = None) -> dict[str, str]:
+    """Create a new session directory tree (or resume existing) and register it as current."""
 
     _ensure_session_root()
+
+    # Case 1: Specific ID requested (e.g. from Login Screen)
+    if requested_session_id:
+        session_id = str(requested_session_id).strip()
+        if not _SAFE_ID_PATTERN.fullmatch(session_id):
+             # Sanitization fallback or error? Let's error to be safe, or just sanitize.
+             # For a "Login" feature, we should probably be strict or auto-sanitize.
+             # Let's just strip invalid chars for now to be friendly.
+             session_id = "".join(c for c in session_id if c.isalnum() or c in "._-")
+             if not session_id:
+                  raise HTTPException(status_code=400, detail="Invalid session ID format")
+
+        base = session_dir(session_id)
+        if base.exists():
+            # Resume existing
+            ensure_session_files(session_id)
+            set_current_session(session_id)
+            return {"session_id": session_id, "action": "resumed"}
+        
+        # Create new named session
+        try:
+            base.mkdir(mode=0o755, exist_ok=False)
+            ensure_session_files(session_id)
+            # Remove sample seeding to ensure clean slate for new users
+            # _seed_session_with_samples(session_id) 
+            set_current_session(session_id)
+            return {"session_id": session_id, "action": "created"}
+        except Exception as exc:
+             raise HTTPException(status_code=500, detail=f"unable to create session '{session_id}': {exc}") from exc
+
+    # Case 2: Random ID (Anonymous/Default)
     for _ in range(8):
         session_id = str(uuid.uuid4())
         base = session_dir(session_id)
@@ -362,11 +397,11 @@ def start_session() -> dict[str, str]:
             shutil.rmtree(base, ignore_errors=True)
             raise
 
-        try:
-            _seed_session_with_samples(session_id)
-        except Exception:
-            shutil.rmtree(base, ignore_errors=True)
-            raise
+        # try:
+        #    _seed_session_with_samples(session_id)
+        # except Exception:
+        #    shutil.rmtree(base, ignore_errors=True)
+        #    raise
 
         set_current_session(session_id)
         return {"session_id": session_id}
@@ -400,3 +435,47 @@ def delete_session(session_id: str) -> dict[str, Any]:
         set_current_session(None)
 
     return {"status": "deleted", "session_id": session_id}
+
+
+def track_appeal_outcome(session_id: str, doc_id: str, status: str, notes: str = "") -> None:
+    """Record an appeal outcome event."""
+    # Ensure session
+    session_dir = DATA_ROOT / "user_sessions" / session_id
+    if not session_dir.exists():
+        return
+
+    appeals_path = session_dir / "appeals.json"
+    history = []
+    if appeals_path.exists():
+        try:
+            history = json.loads(appeals_path.read_text(encoding="utf-8"))
+        except:
+            pass
+    
+    # Check if we should update existing entry for this doc or append new event
+    # For now, let's just append events (log style)
+    event = {
+        "doc_id": doc_id,
+        "status": status,
+        "notes": notes,
+        "timestamp": datetime.now().isoformat()
+    }
+    history.insert(0, event) # Newest first
+    
+    appeals_path.write_text(json.dumps(history, indent=2), encoding="utf-8")
+
+
+def list_appeal_history(session_id: str) -> list[dict]:
+    """Get appeal history for session."""
+    session_dir = DATA_ROOT / "user_sessions" / session_id
+    if not session_dir.exists():
+        return []
+        
+    appeals_path = session_dir / "appeals.json"
+    if not appeals_path.exists():
+        return []
+    
+    try:
+        return json.loads(appeals_path.read_text(encoding="utf-8"))
+    except:
+        return []

@@ -1,0 +1,15 @@
+{
+  "session_id": "Founder",
+  "plan_year_start": null,
+  "plan_name": "",
+  "deductible_individual": 2000.0,
+  "deductible_remaining": 2000.0,
+  "coinsurance": 0.2,
+  "oop_max": 5000.0,
+  "oop_remaining": 5000.0,
+  "copays": {
+    "primary": 25.0,
+    "specialist": 50.0,
+    "er": 250.0
+  }
+}
