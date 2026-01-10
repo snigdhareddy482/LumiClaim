@@ -1,6 +1,5 @@
 import streamlit as st
 import plotly.graph_objects as go
-import requests
 from utils import api, ui
 
 st.set_page_config(
@@ -86,12 +85,10 @@ with ui.card_container():
                     try:
                         files = {"file": sbc_file.getvalue()}
                         params = {"session_id": api.get_session_id()}
-                        # Use direct requests for file upload
-                        url = f"{api.get_api_base()}/profile/upload_sbc"
-                        resp = requests.post(url, files=files, params=params)
+                        # Use api.post for file upload
+                        data = api.post("/profile/upload_sbc", files=files, params=params)
                         
-                        if resp.status_code == 200:
-                            data = resp.json()
+                        if data: # api.post returns the JSON data directly on success
                             st.session_state["profile_data"] = data.get("profile")
                             extracted = data.get("extracted", {})
                             msg = "Found: "
