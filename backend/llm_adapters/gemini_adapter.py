@@ -11,13 +11,17 @@ from dotenv import load_dotenv
 load_dotenv()
 
 try:  # Optional dependency to keep local development light.
-	import google.generativeai as genai  # type: ignore[import-not-found]
+    import google.generativeai as genai  # type: ignore[import-not-found]
 except ImportError:  # pragma: no cover - adapter requires runtime dependency
-	genai = None  # type: ignore[assignment]
+    genai = None  # type: ignore[assignment]
 
 
 class NotConfigured(RuntimeError):
 	"""Raised when the Gemini adapter cannot run due to missing setup."""
+
+
+class QuotaExceededError(RuntimeError):
+    """Raised when the Gemini API returns a 429 Resource Exhausted error."""
 
 
 def verbalize(persona: str, level: str, payload: Dict[str, Any]) -> str:
@@ -37,7 +41,7 @@ def verbalize(persona: str, level: str, payload: Dict[str, Any]) -> str:
 	)
 	serialized_payload = json.dumps(payload, indent=2, sort_keys=True)
 
-	model = genai.GenerativeModel("gemini-1.5-flash")
+	model = genai.GenerativeModel("gemini-2.0-flash")
 	reply = model.generate_content([
 		{"role": "system", "parts": [instruction]},
 		{"role": "user", "parts": [serialized_payload]},
@@ -83,13 +87,16 @@ def extract_text_from_image(image_data: Any) -> str:
     try:
         genai.configure(api_key=api_key)
         # Use Flash for speed
-        model = genai.GenerativeModel("gemini-1.5-flash")
+        model = genai.GenerativeModel("gemini-2.0-flash")
         
         # Prompt for extraction
         response = model.generate_content(["Extract all text from this EOB document page verbatim.", image_data])
         
         return response.text if response else ""
     except Exception as e:
+        if "429" in str(e) or "Resource has been exhausted" in str(e):
+             print(f"[GEMINI OCR QUOTA] Hit 429 limit: {e}")
+             raise QuotaExceededError("Gemini API Quota Exceeded (OCR)") from e
         print(f"[GEMINI OCR] Failed: {e}")
         return ""
 
@@ -104,7 +111,7 @@ def extract_structured_eob(image_data: Any) -> list[Dict[str, Any]]:
 
     try:
         genai.configure(api_key=api_key)
-        model = genai.GenerativeModel("gemini-1.5-flash")
+        model = genai.GenerativeModel("gemini-2.0-flash")
         
         prompt = """Extract all medical claim lines from this EOB image into a JSON list. 
         Each item in the list should be an object with these keys (if present):
@@ -131,5 +138,65 @@ def extract_structured_eob(image_data: Any) -> list[Dict[str, Any]]:
         print(f"[GEMINI JSON] Failed: {e}")
         return []
 
-__all__ = ["NotConfigured", "verbalize", "extract_text_from_image", "extract_structured_eob"]
+
+def extract_structured_eob_text(text: str) -> list[Dict[str, Any]]:
+    """Extract EOB data as structured JSON list from raw text."""
+    if genai is None:
+        return []
+
+    api_key = os.getenv("GEMINI_API_KEY")
+    if not api_key:
+        return []
+
+    try:
+        genai.configure(api_key=api_key)
+        model = genai.GenerativeModel("gemini-2.0-flash")
+        
+        prompt = """You are an expert OCR data extractor. Extract meaningful medical claim line items from this text.
+        Even if the text is messy or vertical, find the procedure codes (CPT), billed amounts, and dates.
+        Structure the output as a JSON list of objects.
+        
+        Keys:
+        - date (string, MM/DD/YYYY)
+        - cpt (string)
+        - description (string)
+        - billed (float)
+        - allowed (float)
+        - insurer_paid (float)
+        - patient_resp (float)
+        
+        If you find ANY data resembling a claim line, extract it.
+        Return ONLY valid JSON.
+        """
+        
+        if not api_key:
+            return []
+            
+        # Debug Log Key (Safe)
+        try:
+             with open("gemini_adapter_debug.log", "a") as f:
+                 f.write(f"Key Present: {bool(api_key)} Len: {len(api_key)}\n")
+        except: pass
+        
+        safety = [
+            {"category": "HARM_CATEGORY_HARASSMENT", "threshold": "BLOCK_NONE"},
+            {"category": "HARM_CATEGORY_HATE_SPEECH", "threshold": "BLOCK_NONE"},
+            {"category": "HARM_CATEGORY_SEXUALLY_EXPLICIT", "threshold": "BLOCK_NONE"},
+            {"category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "BLOCK_NONE"},
+        ]
+        response = model.generate_content([prompt, text], safety_settings=safety)
+        out_text = response.text if response else "[]"
+        
+        # Strip markdown code blocks if present
+        out_text = out_text.replace("```json", "").replace("```", "").strip()
+        
+        return json.loads(out_text)
+    except Exception as e:
+        if "429" in str(e) or "Resource has been exhausted" in str(e):
+             print(f"[GEMINI QUOTA] Hit 429 limit: {e}")
+             raise QuotaExceededError("Gemini API Quota Exceeded") from e
+        print(f"[GEMINI JSON TEXT] Failed: {e}")
+        return []
+
+__all__ = ["NotConfigured", "verbalize", "extract_text_from_image", "extract_structured_eob", "extract_structured_eob_text"]
 

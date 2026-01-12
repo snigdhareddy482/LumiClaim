@@ -4,6 +4,8 @@ import sys
 import requests
 import json
 import time
+from dotenv import load_dotenv
+load_dotenv(override=True)
 
 def print_result(name, success, message):
     status = "[PASS]" if success else "[FAIL]"
@@ -23,33 +25,33 @@ except requests.exceptions.ConnectionError:
 except Exception as e:
     print_result("Backend Health", False, f"Error: {e}")
 
-# 2. Check Gemini
-gemini_key = os.getenv("GEMINI_API_KEY")
-if not gemini_key:
-    # Try looking in .env file if it exists, though python doesn't load it by default
-    # We'll just report the environment variable state
-    print_result("Gemini Config", False, "GEMINI_API_KEY environment variable is NOT set.")
+# 2. Check Groq
+groq_key = os.getenv("GROQ_API_KEY")
+if not groq_key:
+    print_result("Groq Config", False, "GROQ_API_KEY environment variable is NOT set.")
 else:
-    print_result("Gemini Config", True, "GEMINI_API_KEY is detected.")
+    print_result("Groq Config", True, "GROQ_API_KEY is detected.")
 
 try:
-    import google.generativeai as genai
-    print_result("Gemini Library", True, "google-generativeai package is installed.")
+    from groq import Groq
+    print_result("Groq Library", True, "groq package is installed.")
     
-    if gemini_key:
+    if groq_key:
         try:
-            genai.configure(api_key=gemini_key)
-            model = genai.GenerativeModel("gemini-1.5-flash")
+            client = Groq(api_key=groq_key)
             # Simple generation test
-            response = model.generate_content("Hello, are you there?")
-            if response and response.text:
-                 print_result("Gemini API", True, "Successfully generated text from Gemini API.")
+            chat_completion = client.chat.completions.create(
+                messages=[{"role": "user", "content": "Hello"}],
+                model="llama-3.3-70b-versatile",
+            )
+            if chat_completion.choices[0].message.content:
+                 print_result("Groq API", True, "Successfully generated text from Groq API.")
             else:
-                 print_result("Gemini API", False, "Connected but received empty response.")
+                 print_result("Groq API", False, "Connected but received empty response.")
         except Exception as e:
-             print_result("Gemini API", False, f"API Call Failed: {e}")
+             print_result("Groq API", False, f"API Call Failed: {e}")
 except ImportError:
-    print_result("Gemini Library", False, "google-generativeai package is NOT installed.")
+    print_result("Groq Library", False, "groq package is NOT installed.")
 
 
 # 3. Check Elasticsearch

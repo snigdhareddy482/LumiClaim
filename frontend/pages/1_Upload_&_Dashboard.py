@@ -112,8 +112,22 @@ with tab_upload:
                     )
                 else:
                     # FAILED STATE / FALLBACK
-                    st.warning("No structured table found.")
-                    st.markdown("This often happens with scanned images or complex layouts.")
+                    with st.expander("📄 Document Details (Debug)", expanded=True):
+                        st.json({
+                            "doc_id": last_up.get("doc_id"),
+                            "filename": last_up.get("filename"),
+                            "notes": last_up.get("notes", []),
+                            "text_length": len(last_up.get("extracted_text_preview", "")),
+                            "claims_count": len(rows)
+                        })
+                        st.text_area("Raw Text Preview", last_up.get("extracted_text_preview"), height=100)
+                    
+                    if "quota_exceeded_try_later" in last_up.get("notes", []):
+                         st.error("⚠️ AI Limit Reached: The free AI quota has been exhausted by the provider.")
+                         st.caption("Please try again later or upgrade your API tier. The system is functioning correctly, but the external AI service is blocking requests.")
+                    else:
+                         st.warning("No structured table found. (Check 'Document Details' above for errors)")
+                         st.markdown("This often happens with scanned images or complex layouts.")
                     
                     st.markdown("---")
                     st.markdown("### 👇 Next Step")

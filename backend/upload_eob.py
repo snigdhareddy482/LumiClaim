@@ -42,7 +42,7 @@ from backend.session import (
     ensure_session_dirs,
     ensure_session_files,
 )
-from backend.upload import redact_text
+from backend.llm_adapters.groq_adapter import extract_structured_eob_text, QuotaExceededError, extract_text_from_image
 
 
 BASE_SESSION_PATH = SESSION_ROOT
@@ -176,7 +176,29 @@ def _extract_from_pdf_bytes(content: bytes) -> Tuple[str, int]:
         except Exception:
             texts.append("")
     pages = len(reader.pages)
-    return "\n".join(texts), pages
+    combined_text = "\n".join(texts)
+    
+    # If PyPDF2 got very little text, the PDF is likely scanned images.
+    # Try Gemini Vision OCR on the first page as fallback.
+    if len(combined_text.strip()) < 50:
+        try:
+            from pdf2image import convert_from_bytes
+            from backend.llm_adapters.gemini_adapter import extract_text_from_image
+            
+            # Convert first page to image
+            images = convert_from_bytes(content, first_page=1, last_page=1)
+            if images:
+                ocr_text = extract_text_from_image(images[0])
+                if ocr_text and len(ocr_text.strip()) > 20:
+                    print("[PDF] Gemini OCR fallback succeeded")
+                    return ocr_text, pages
+        except QuotaExceededError:
+            raise  # bubble up to handler
+        except Exception as e:
+            print(f"[PDF] Gemini OCR fallback failed: {e}")
+    
+    return combined_text, pages
+
 
 
 def _extract_from_image_bytes(content: bytes) -> Tuple[str, int]:
@@ -191,6 +213,8 @@ def _extract_from_image_bytes(content: bytes) -> Tuple[str, int]:
         text = extract_text_from_image(img)
         if text and len(text.strip()) > 20:
             return text, 1
+    except QuotaExceededError:
+        raise
     except Exception as e:
         # Log but don't fail - try Tesseract next
         print(f"Gemini OCR failed: {e}")
@@ -297,7 +321,14 @@ def handle_upload_file(filename: str, content: bytes, session_id: str | None = N
                 try:
                     parsed_rows, raw_pages, parse_notes = extractors.parse_pdf(str(saved_path))
                     notes_parts.extend(parse_notes or [])
-                except Exception:
+                except Exception as e:
+                    try:
+                        with open("backend_crash.log", "a") as f:
+                            f.write(f"CRASH: {e}\n")
+                            import traceback
+                            traceback.print_exc(file=f)
+                    except:
+                        pass
                     parsed_rows, raw_pages = [], []
         elif ext in {".png", ".jpg", ".jpeg"}:
             # try OCR
@@ -309,8 +340,48 @@ def handle_upload_file(filename: str, content: bytes, session_id: str | None = N
                 notes_parts.extend(parse_notes or [])
             except Exception:
                 parsed_rows, raw_pages = [], []
+    except QuotaExceededError:
+        print("[Upload] Gemini Quota Exceeded (OCR/Text Layer)")
+        notes_parts.append("quota_exceeded_try_later")
     except Exception as exc:  # pragma: no cover - defensive
         notes_parts.append(f"extraction_failed: {str(exc)}")
+
+    
+    # Consolidate text: if extracted_text is missing or too short, and we have raw pages
+    is_text_usable = extracted_text and len(extracted_text.strip()) > 20
+    if not is_text_usable and raw_pages:
+        extracted_text = "\n".join(str(p) for p in raw_pages)
+
+    # Fallback: if we have text but no structured rows, try Gemini Text Extraction
+    if not parsed_rows and extracted_text and len(extracted_text.strip()) > 20:
+        try:
+            ai_rows = extract_structured_eob_text(extracted_text)
+            if ai_rows:
+                parsed_rows = []
+                for item in ai_rows:
+                    parsed_rows.append({
+                        "line_id": f"L-gemini-fallback-{len(parsed_rows)}",
+                        "page": 1,
+                        "cell_id": "gemini:text_fallback",
+                        "cpt": item.get("cpt"),
+                        "modifier": None,
+                        "billed": item.get("billed"),
+                        "allowed": item.get("allowed"),
+                        "insurer_paid": item.get("insurer_paid"),
+                        "adjustments": item.get("adjustments", []),
+                        "patient_resp": item.get("patient_resp"),
+                        "description": item.get("description"),
+                    })
+                notes_parts.append(f"gemini_text_fallback_success: {len(parsed_rows)} rows")
+            else:
+                notes_parts.append(f"gemini_text_fallback_empty_result_len_{len(extracted_text)}")
+        except QuotaExceededError:
+            print("[Upload] Gemini Quota Exceeded during fallback.")
+            notes_parts.append("quota_exceeded_try_later")
+        except Exception as e:
+            # log but don't fail upload
+            print(f"Gemini fallback failed: {e}")
+            notes_parts.append(f"gemini_text_fallback_failed: {str(e)}")
 
     # If we failed to extract any text, keep minimal placeholder
     if not extracted_text:
@@ -413,6 +484,9 @@ def handle_upload_file(filename: str, content: bytes, session_id: str | None = N
     return {
         "session_id": session_id,
         "doc_id": doc_id,
+        "filename": safe_name,
+        "notes": notes_parts,
+        "extracted_text_preview": artifact.get("extracted_text_preview"),
         "preview": {
             "rows": rows_preview,
             "text_snippets": text_snippets,

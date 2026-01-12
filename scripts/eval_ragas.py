@@ -48,7 +48,7 @@ class RateLimitedGemini(ChatGoogleGenerativeAI):
 
 # 1. Configure LLM with Rate Limiting
 llm = RateLimitedGemini(
-    model="gemini-1.5-flash",
+    model="gemini-2.0-flash",
     google_api_key=API_KEY,
     temperature=0
 )

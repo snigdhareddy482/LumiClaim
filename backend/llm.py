@@ -1,19 +1,9 @@
-"""LLM Interface for LumiClaim using Google Gemini."""
+"""LLM Interface for LumiClaim using Groq."""
 
-import os
 import logging
-try:
-    import google.generativeai as genai
-    _HAS_GENAI = True
-except ImportError:
-    _HAS_GENAI = False
+from backend.llm_adapters.groq_adapter import complete_text
 
 LOGGER = logging.getLogger(__name__)
-
-# Configure API
-API_KEY = os.getenv("GEMINI_API_KEY")
-if _HAS_GENAI and API_KEY:
-    genai.configure(api_key=API_KEY)
 
 def generate_appeal_letter(
     doc_id: str, 
@@ -23,20 +13,8 @@ def generate_appeal_letter(
     user_context: str, 
     policy_context: str
 ) -> str:
-    """Generate a formal appeal letter using Gemini."""
+    """Generate a formal appeal letter using Groq."""
     
-    if not _HAS_GENAI:
-        return "Error: google-generativeai package not installed."
-    if not API_KEY:
-        return "Error: GEMINI_API_KEY environment variable not set."
-
-    # Robustness: Use a fast model for latency
-    try:
-        model = genai.GenerativeModel("gemini-1.5-flash")
-    except Exception:
-        # Fallback to older model string if flash unavailable or other issue
-        model = genai.GenerativeModel("gemini-pro")
-
     prompt = f"""
     You are an expert Patient Advocate and Medical Billing Specialist. Write a formal, persuasive appeal letter to a health insurance payer.
     
@@ -63,26 +41,14 @@ def generate_appeal_letter(
     Return ONLY the body of the letter. Do not include introductory text like "Here is the letter".
     """
     
-    try:
-        response = model.generate_content(prompt)
-        if response.text:
-            return response.text
-        return "AI produced empty response."
-    except Exception as e:
-        LOGGER.error(f"LLM Error: {e}")
-        return f"AI Generation Failed: {e}"
+    result = complete_text(prompt)
+    if not result:
+        return "AI Generation Failed (Groq API Error or Missing Key)."
+    return result
 
 def summarize_bill(breakdown_text: str, persona: str, grade_level: str) -> str:
     """Generate a persona-based summary of the bill."""
     
-    if not _HAS_GENAI or not API_KEY:
-        return "AI Summary Unavailable (Config Error)."
-
-    try:
-        model = genai.GenerativeModel("gemini-1.5-flash")
-    except Exception:
-        model = genai.GenerativeModel("gemini-pro")
-
     prompt = f"""
     You are a medical billing explainer.
     
@@ -105,11 +71,7 @@ def summarize_bill(breakdown_text: str, persona: str, grade_level: str) -> str:
     Just the explanation text.
     """
     
-    try:
-        response = model.generate_content(prompt)
-        if response.text:
-            return response.text.strip()
-        return "AI produced empty summary."
-    except Exception as e:
-        LOGGER.error(f"LLM Summary Error: {e}")
-        return f"AI Summary Failed: {e}"
+    result = complete_text(prompt)
+    if not result:
+        return "AI Summary Unavailable."
+    return result.strip()

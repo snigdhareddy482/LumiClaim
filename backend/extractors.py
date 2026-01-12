@@ -137,6 +137,7 @@ def parse_pdf(path: str) -> Tuple[List[SchemaRow], List[str], List[str]]:
     rows: List[SchemaRow] = []
     raw_pages: List[str] = []
     notes: List[str] = []
+    notes.append("DEBUG_PARSE_PDF_START")
 
     if pdfplumber is None:
         notes.append("pdfplumber unavailable; no text extracted")
@@ -146,15 +147,34 @@ def parse_pdf(path: str) -> Tuple[List[SchemaRow], List[str], List[str]]:
                 for i, page in enumerate(pdf.pages, start=1):
                     text = page.extract_text() or ""
                     
-                    # Fallback to Gemini OCR if text is sparse (likely scanned)
+                    # Fallback to Gemini Structured if text is sparse (likely scanned)
                     if len(text.strip()) < 50 and hasattr(page, "to_image"):
                         try:
                             # Resolution 300 is standard for OCR
+                            from backend.llm_adapters.gemini_adapter import extract_structured_eob
                             img = page.to_image(resolution=300).original
-                            ocr_text = extract_text_from_image(img)
-                            if ocr_text and len(ocr_text) > len(text):
-                                text = ocr_text
-                                notes.append(f"page_{i}_ocr_gemini")
+                            
+                            structured_data = extract_structured_eob(img)
+                            if structured_data:
+                                for item in structured_data:
+                                    row: SchemaRow = {
+                                        "line_id": f"L-gemini-{i}",
+                                        "page": i,
+                                        "cell_id": f"gemini:P{i}",
+                                        "cpt": item.get("cpt"),
+                                        "modifier": None,
+                                        "billed": item.get("billed"),
+                                        "allowed": item.get("allowed"),
+                                        "insurer_paid": item.get("insurer_paid"),
+                                        "adjustments": item.get("adjustments", []),
+                                        "patient_resp": item.get("patient_resp"),
+                                        "description": item.get("description"),
+                                    }
+                                    rows.append(row)
+                                notes.append(f"page_{i}_gemini_structured")
+                                raw_pages.append("Gemini Structured PDF Page")
+                                continue # Skip text accumulation if structured found
+                                
                         except Exception as e:
                             notes.append(f"ocr_failed_page_{i}:{e}")
                             

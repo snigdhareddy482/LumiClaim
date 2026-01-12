@@ -13,3 +13,5 @@ pandas
 fastapi
 networkx
 plotly
+pdf2image
+google-generativeai

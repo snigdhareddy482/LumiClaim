@@ -22,7 +22,7 @@ from backend.appeal import build_appeal, build_appeal_docx, build_appeal_pdf
 from backend.llm import generate_appeal_letter, summarize_bill
 from backend.compare_docs import compare_docs
 from backend.copywriter import explain_plain
-from backend.llm_adapters.gemini_adapter import NotConfigured, verbalize
+from backend.llm_adapters.groq_adapter import verbalize
 from backend.egraph import build_evidence_graph
 from backend.exporter import build_explain_docx
 from backend.math_guard import explain_bill
